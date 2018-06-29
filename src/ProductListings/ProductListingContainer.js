@@ -4,7 +4,7 @@ import ProductListingsCollection from "./ProductListingsCollection.js";
 import SearchField from "./SearchField.js";
 import adapter from "../adapter.js";
 import { connect } from "react-redux";
-import { setProductListingsAndCategories } from "../actions/index.js";
+import { setProductListingsAndCategories, updateSearchTerm } from "../actions/index.js";
 
 class ProductListingContainer extends Component {
   componentDidMount() {
@@ -21,11 +21,11 @@ class ProductListingContainer extends Component {
   //A callback function that will be invoked when there is a onchange event
   //triggered in the search field(child component)
   filterProductListings = (searchTerm) => {
-
+    console.log("search term is ", searchTerm)
+    this.props.updateSearchTerm(searchTerm);
   }
 
   render() {
-    console.log("PRODUCT LISTING CONTAINER", this.props)
     return (
       <div>
         <Categories/>
@@ -39,16 +39,20 @@ class ProductListingContainer extends Component {
 function mapStateToProps(state) {
   return {
     categories: state.categories,
-    productListings: state.productListings
-  }
+    productListings: state.productListings,
+    searchTerm: state.searchTerm
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     setProductListingsAndCategories: (product_listings, categories) => {
-      dispatch(setProductListingsAndCategories(product_listings, categories))
+      dispatch(setProductListingsAndCategories(product_listings, categories));
+    },
+    updateSearchTerm: (searchTerm) => {
+      dispatch(updateSearchTerm(searchTerm));
     }
-  }
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductListingContainer);
