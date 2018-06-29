@@ -3,17 +3,23 @@ import Categories from "./Categories.js";
 import ProductListings from "./ProductListings.js";
 import adapter from "../adapter.js";
 import {connect} from "react-redux";
-import setCategories from "../actions/index.js";
+import {setCategories, setProductListings} from "../actions/index.js";
 
 class ProductListingContainer extends Component {
   componentDidMount() {
-    adapter.get("categories")
-      .then(response => response.json())
-      .then(data => this.props.setCategories(data));
+    Promise.all([
+      adapter.get("categories"),
+      adapter.get("product_listings")
+    ])
+      .then(([response1, response2]) => Promise.all([response1.json(), response2.json()]))
+      .then(([categories, productListings]) => {
+        this.props.setProductListings(productListings);
+        this.props.setCategories(categories);
+      });
   }
 
   render() {
-    console.log("hello", this.props)
+    console.log("PRODUCT LISITING CONTAINER", this.props)
     return (
       <div>
         <Categories/>
@@ -25,7 +31,8 @@ class ProductListingContainer extends Component {
 
 function mapStateToProps(state) {
   return {
-    categories: state.categories
+    categories: state.categories,
+    productListings: state.productListings
   }
 }
 
@@ -33,6 +40,9 @@ function mapDispatchToProps(dispatch) {
   return {
     setCategories: (categories) => {
       dispatch(setCategories(categories));
+    },
+    setProductListings: (product_listings) => {
+      dispatch(setProductListings(product_listings));
     }
 
   }
