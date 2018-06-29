@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import {connect} from "react-redux";
-import {List} from "semantic-ui-react";
+import { connect } from "react-redux";
+import { List } from "semantic-ui-react";
 
 const Categories = (props) => {
   console.log("inside categories", props)
@@ -8,7 +8,7 @@ const Categories = (props) => {
     <List link>
       {
         props.categories.map((categoryObj) => {
-          return <List.Item as="a"><a>{categoryObj.name}</a></List.Item>
+          return <List.Item as="a" key={categoryObj.id}><a>{categoryObj.name}</a></List.Item>
         })
       }
     </List>

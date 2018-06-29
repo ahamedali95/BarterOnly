@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ProductListing from "./ProductListing.js";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 
 const ProductListingsCollection = (props) => {
   console.log("INSIDE PRODUCTLISITINGS COLLECTION", props)
@@ -8,7 +8,7 @@ const ProductListingsCollection = (props) => {
     <div>
     {
       props.productListings.map((productListingObj) => {
-        return <ProductListing productListing={productListingObj}></ProductListing>
+        return <ProductListing key={productListingObj.id} productListing={productListingObj}></ProductListing>
       })
     }
     </div>

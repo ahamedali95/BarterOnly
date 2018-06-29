@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Card} from "semantic-ui-react";
+import { Card } from "semantic-ui-react";
 
 const ProductListing = (props) => {
   console.log("INSIDE PRODUCTLISTING", props);
@@ -7,7 +7,7 @@ const ProductListing = (props) => {
     <Card
       image={props.productListing.image}
       header={props.productListing.name}
-      meta={props.productListing.value}
+      meta={`$${props.productListing.value}`}
       description={props.productListing.description}
     />
   );
