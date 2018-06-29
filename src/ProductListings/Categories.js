@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
+import {connect} from "react-redux";
 
-const Categories = () => {
+const Categories = (props) => {
+  console.log("inside categories", props)
   return (
     <p>hello</p>
   );
 }
 
-export default Categories;
+function mapStateToProps(state) {
+  return {
+    categories: state.categories
+  }
+}
+
+export default connect(mapStateToProps)(Categories);

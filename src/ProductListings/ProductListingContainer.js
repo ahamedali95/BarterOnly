@@ -8,7 +8,7 @@ class ProductListingContainer extends Component {
   componentDidMount() {
     adapter.get("categories")
       .then(response => response.json())
-      .then(data => console.log(data));
+      .then(data => this.props.setCategories(data));
   }
 
   render() {
@@ -24,8 +24,19 @@ class ProductListingContainer extends Component {
 
 function mapStateToProps(state) {
   return {
-    items: state.items
+    categories: state.categories
   }
 }
 
-export default connect(mapStateToProps)(ProductListingContainer);
+function mapDispatchToProps(dispatch) {
+  return {
+    setCategories: (categories) => {
+      dispatch({
+        type: "SET_CATEGORIES",
+        payload: categories
+      });
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductListingContainer);
