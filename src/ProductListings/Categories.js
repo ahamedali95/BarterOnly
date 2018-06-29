@@ -4,7 +4,13 @@ import {connect} from "react-redux";
 const Categories = (props) => {
   console.log("inside categories", props)
   return (
-    <p>hello</p>
+    <ul>
+      {
+        props.categories.map((categoryObj) => {
+          return <li><a>{categoryObj.name}</a></li>
+        })
+      }
+    </ul>
   );
 }
 

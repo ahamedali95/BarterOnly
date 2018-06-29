@@ -3,6 +3,7 @@ import Categories from "./Categories.js";
 import ProductListings from "./ProductListings.js";
 import adapter from "../adapter.js";
 import {connect} from "react-redux";
+import setCategories from "../actions/index.js";
 
 class ProductListingContainer extends Component {
   componentDidMount() {
@@ -31,11 +32,9 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     setCategories: (categories) => {
-      dispatch({
-        type: "SET_CATEGORIES",
-        payload: categories
-      });
+      dispatch(setCategories(categories));
     }
+
   }
 }
 
