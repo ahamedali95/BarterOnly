@@ -1,12 +1,10 @@
-const setCategories = (categories) => {
-  return {type: "SET_CATEGORIES", payload: categories};
-}
-
-const setProductListings = (product_listings) => {
-  return {type: "SET_PRODUCT_LISTINGS", payload: product_listings};
+const setProductListingsAndCategories = (productListings, categories) => {
+  return {type: "SET_PRODUCT_LISTINGS_AND_CATEGORIES", payload: {
+    productListings: productListings,
+    categories: categories
+  }};
 }
 
 module.exports = {
-  setCategories,
-  setProductListings
+  setProductListingsAndCategories
 };

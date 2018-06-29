@@ -13,6 +13,8 @@ function reducer(state = initialState, action) {
       return {...state, productListings: action.payload};
     case "SELECT_CATEGORY":
       return {...state, categorySelected: action.payload};
+    case "SET_PRODUCT_LISTINGS_AND_CATEGORIES":
+      return {...state, productListings: action.payload.productListings, categories: action.payload.categories}
     default:
       return state;
   }
