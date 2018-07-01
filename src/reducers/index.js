@@ -3,14 +3,14 @@ const initialState = {
   productListings: [],
   searchTerm: "",
   sortByOption: "Relevance",
-  categorySelected: null
+  categorySelected: "All"
 };
 
 function reducer(state = initialState, action) {
   console.log(action.type)
   switch(action.type) {
-    case "SELECT_CATEGORY":
-      return {...state, categorySelected: action.payload};
+    case "SET_CATEGORY_AND_RESET_SEARCH_TERM_AND_SORT_OPTION":
+      return {...state, searchTerm: "", sortByOption: "Relevance", categorySelected: action.payload};
     case "SET_PRODUCT_LISTINGS_AND_CATEGORIES":
       return {...state, productListings: action.payload.productListings, categories: action.payload.categories};
     case "UPDATE_SEARCH_TERM":
