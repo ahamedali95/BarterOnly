@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import Categories from "./Categories.js";
 import ProductListingsCollection from "./ProductListingsCollection.js";
 import SearchField from "./SearchField.js";
+import SortSelection from "./SortSelection.js";
 import adapter from "../adapter.js";
 import { connect } from "react-redux";
-import { setProductListingsAndCategories, updateSearchTerm } from "../actions/index.js";
+import { setProductListingsAndCategories, updateSearchTerm, updateSortByOption } from "../actions/index.js";
 
 class ProductListingContainer extends Component {
   componentDidMount() {
@@ -19,10 +20,15 @@ class ProductListingContainer extends Component {
   }
 
   //A callback function that will be invoked when there is a onchange event
-  //triggered in the search field(child component)
+  //triggered in the searchField component(child component). This function
+  //then updates the global state.
   filterProductListings = (searchTerm) => {
-    console.log("search term is ", searchTerm)
     this.props.updateSearchTerm(searchTerm);
+  }
+
+  sortProductListings = (option) => {
+    console.log(option)
+    this.props.updateSortByOption(option);
   }
 
   render() {
@@ -30,6 +36,7 @@ class ProductListingContainer extends Component {
       <div>
         <Categories/>
         <SearchField filterProductListings={this.filterProductListings}/>
+        <SortSelection sortProductListings={this.sortProductListings}/>
         <ProductListingsCollection/>
       </div>
     );
@@ -39,8 +46,7 @@ class ProductListingContainer extends Component {
 function mapStateToProps(state) {
   return {
     categories: state.categories,
-    productListings: state.productListings,
-    searchTerm: state.searchTerm
+    productListings: state.productListings
   };
 }
 
@@ -51,6 +57,9 @@ function mapDispatchToProps(dispatch) {
     },
     updateSearchTerm: (searchTerm) => {
       dispatch(updateSearchTerm(searchTerm));
+    },
+    updateSortByOption: (option) => {
+      dispatch(updateSortByOption(option))
     }
   };
 }
