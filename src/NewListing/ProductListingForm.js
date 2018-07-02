@@ -1,32 +1,74 @@
 import React, { Component } from 'react';
 import { Form, Input, Button } from "semantic-ui-react";
-import { connect } from "react-redux";
 import adapter from "../adapter.js";
+import { connect } from "react-redux";
 
 class ProductListingForm extends Component {
   constructor() {
     super();
 
     this.state = {
-      name: null,
-      description: null,
-      image: null,
-      value: null,
+      name: "",
+      description: "",
+      image: "",
+      value: "",
       condition: null,
       location: null,
       deliveryMethod: null,
       category: null,
       option: "cash",
-      exchangeItem: null
+      exchangeItem: ""
     };
   }
 
   handleSubmit = (event) => {
-    console.log("onsubmit", this.state)
+    //Decide if the the seller is looking for any exchange item,
+    //if the option is cash,
+        //then exchange item should be set to null
+    //Otherwise, it should be set to the value of the exchange item
+    let exchange_item = null;
+    if(this.state.option === "cash") {
+      exchange_item = null;
+    } else {
+      exchange_item = this.state.exchangeItem
+    }
+
+    const body = {
+      name: this.state.name,
+      description: this.state.description,
+      image: this.state.image,
+      value: this.state.value,
+      condition: this.state.condition,
+      location: this.state.location,
+      delivery_method: this.state.deliveryMethod,
+      exchange_item: exchange_item,
+      rating: 0,
+      category_id: this.state.category,
+      user_id: 1
+    };
+
+    adapter.post("product_listings", body)
+    // .then(response => response.json())
+    // .then(data => {debugger})
+    .then(() => this.resetForm());
+  }
+
+  resetForm = () => {
+    this.setState({
+      name: "",
+      description: "",
+      image: "",
+      value: "",
+      condition: null,
+      location: null,
+      deliveryMethod: null,
+      category: null,
+      option: "cash",
+      exchangeItem: ""
+    });
   }
 
   handleChange = (event, {name, value}) => {
-    //debugger
     if (event.target.value === undefined) {
       this.setState({
         [name]: value
@@ -36,9 +78,10 @@ class ProductListingForm extends Component {
         [event.target.name]: event.target.value
       }, () => console.log(this.state));
     }
-    //console.log(event.target.name, event.target.value
   }
 
+  //These are options for the Form.Select which is a Semantic UI react component.
+  //It requires to have an array of objects.
   locationOptions = () => {
     const locations = ['Alabama','Alaska','American Samoa','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Federated States of Micronesia','Florida','Georgia','Guam','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine',
     'Marshall Islands','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Northern Mariana Islands','Ohio','Oklahoma','Oregon','Palau','Pennsylvania','Puerto Rico','Rhode Island','South Carolina',
@@ -121,20 +164,20 @@ class ProductListingForm extends Component {
           />
           <Form.Select
             required
-            label="Location"
-            name="location"
-            placeholder="Location"
-            options={this.locationOptions()}
-            value={this.state.location}
-            onChange={(event, { name, value }) => this.handleChange(event, { name, value })}
-          />
-          <Form.Select
-            required
             label="Condition"
             name="condition"
             placeholder="Condition"
             options={this.conditionOptions()}
             value={this.state.condition}
+            onChange={(event, { name, value }) => this.handleChange(event, { name, value })}
+          />
+          <Form.Select
+            required
+            label="Location"
+            name="location"
+            placeholder="Location"
+            options={this.locationOptions()}
+            value={this.state.location}
             onChange={(event, { name, value }) => this.handleChange(event, { name, value })}
           />
           <Form.Select
@@ -153,7 +196,16 @@ class ProductListingForm extends Component {
             placeholder="Category"
             options={this.categoryOptions()}
             value={this.state.category}
-            onChange={(event, { name, value }) => this.handleChange(event, { name, value })}
+            onChange={(event, { name, value }) => {
+              //get the id of the category so that we can send a POST request
+              //to store the product listing. REMEMBER - product listing belongs
+              //to a category
+              value = this.props.categories.find((categoryObj) => {
+                return categoryObj.name === value;
+              }).id;
+
+              this.handleChange(event, { name, value });
+            }}
           />
           <Form.Field
             label="Cash/Trade"

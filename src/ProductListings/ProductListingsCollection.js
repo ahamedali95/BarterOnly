@@ -30,7 +30,7 @@ const ProductListingsCollection = (props) => {
         break;
       case "Recent":
         p = filterProductListings.sort((productListingObj1, productListingObj2) => {
-          return new Date(productListingObj2["date_posted"]) - new Date(productListingObj1["date_posted"]);
+          return new Date(productListingObj2["created_at"]) - new Date(productListingObj1["created_at"]);
         });
         console.log("p is", p)
         break;

@@ -3,7 +3,8 @@ const initialState = {
   productListings: [],
   searchTerm: "",
   sortByOption: "Relevance",
-  categorySelected: "All"
+  categorySelected: "All",
+  userId: 1
 };
 
 function reducer(state = initialState, action) {
@@ -17,6 +18,8 @@ function reducer(state = initialState, action) {
       return {...state, searchTerm: action.payload};
     case "UPDATE_SORT_BY_OPTION":
       return {...state, sortByOption: action.payload};
+    case "UPDATE_PRODUCT_LISTINGS":
+      return {...state, productListings: action.payload};
     default:
       return state;
   }

@@ -15,7 +15,7 @@ const NavBar = () => {
           color: "red"
         }}
       >
-        Home
+        Product Listings
       </NavLink>
 
       <NavLink
@@ -30,6 +30,20 @@ const NavBar = () => {
         }}
       >
         Create a Product Listing
+      </NavLink>
+
+      <NavLink
+        to="/my-product-listings"
+        exact
+        style={{
+          color: "blue",
+          padding: "20px"
+        }}
+        activeStyle={{
+          color: "red"
+        }}
+      >
+        My Listings
       </NavLink>
     </div>
   );

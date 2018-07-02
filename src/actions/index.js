@@ -28,9 +28,17 @@ const updateSortByOption = (option) => {
   };
 }
 
+const updateProductListings = (newProductListings) => {
+  return {
+    type: "UPDATE_PRODUCT_LISTINGS",
+    payload: newProductListings
+  };
+}
+
 module.exports = {
   setProductListingsAndCategories,
   setCategoryAndResetSearchTermAndSortOption,
   updateSearchTerm,
-  updateSortByOption
+  updateSortByOption,
+  updateProductListings
 };
