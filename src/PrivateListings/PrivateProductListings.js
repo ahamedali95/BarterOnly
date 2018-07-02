@@ -22,9 +22,10 @@ const PrivateProductListings = (props) => {
         <Table.Cell>${productListingObj.value}</Table.Cell>
         <Table.Cell>{
           productListingObj.exchange_item === null ?
-            "None"
+            "Cash"
             :
-            productListingObj.exchange_item}
+            productListingObj.exchange_item
+          }
         </Table.Cell>
         <Table.Cell>{productListingObj.created_at}</Table.Cell>
         <Table.Cell>

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ProductListing from "./ProductListing.js";
+import ProductListingDetails from "./ProductListingDetails.js";
 import { connect } from "react-redux";
 
 const ProductListingsCollection = (props) => {
@@ -97,9 +98,12 @@ const ProductListingsCollection = (props) => {
   return (
     <div>
     {
-      p.map((productListingObj) => {
-        return <ProductListing key={productListingObj.id} productListing={productListingObj}></ProductListing>
-      })
+      props.currentProductListing === null ?
+        p.map((productListingObj) => {
+          return <ProductListing key={productListingObj.id} productListing={productListingObj}></ProductListing>
+        })
+        :
+        <ProductListingDetails key={props.currentProductListing.id} productListing={props.currentProductListing}></ProductListingDetails>
     }
     </div>
   );
@@ -110,7 +114,8 @@ function mapStateToProps(state) {
     productListings: state.productListings,
     searchTerm: state.searchTerm,
     sortByOption: state.sortByOption,
-    categorySelected: state.categorySelected
+    categorySelected: state.categorySelected,
+    currentProductListing: state.currentProductListing
   }
 }
 

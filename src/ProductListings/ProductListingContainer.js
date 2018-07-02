@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import Categories from "./Categories.js";
 import ProductListingsCollection from "./ProductListingsCollection.js";
 import SearchField from "./SearchField.js";
