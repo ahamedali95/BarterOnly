@@ -95,6 +95,11 @@ const ProductListingsCollection = (props) => {
       }
   }
 
+
+  //Conditional rendering to display either a collection of product listings or
+  //a specific product listing. If there is exists a currentProductListing, then
+  //we must show its details. Otherwise, show the entire collection of
+  //product listings. 
   return (
     <div>
     {

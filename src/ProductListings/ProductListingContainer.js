@@ -15,6 +15,10 @@ class ProductListingContainer extends Component {
     ])
     .then(([response1, response2]) => Promise.all([response1.json(), response2.json()]))
     .then(([categories, productListings]) => {
+      //Filter the product listings so that we can products which are not sold.
+      productListings = productListings.filter((productListingObj) => {
+        return !productListingObj.isSold
+      });
       this.props.setProductListingsAndCategories(productListings, categories);
     });
   }
