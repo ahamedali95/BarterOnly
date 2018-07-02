@@ -53,7 +53,45 @@ const ProductListingsCollection = (props) => {
         break;
     }
   } else {
-      p = props.productListings
+      //p = props.productListings
+
+      //Filter product listings based on the searchTerm so that we can prepare it
+      //for sorting
+      const filterProductListings = props.productListings.filter((productListingObj) => {
+        return productListingObj.name.toLowerCase().includes(props.searchTerm.toLowerCase());
+      });
+
+      //Sort the filterProductListings by switching on several different options and
+      //this will get rendered in the return statement
+      switch(props.sortByOption) {
+        case "Relevance":
+        console.log("hello relevance")
+          p = filterProductListings
+          break;
+        case "Recent":
+          p = filterProductListings.sort((productListingObj1, productListingObj2) => {
+            return new Date(productListingObj2["created_at"]) - new Date(productListingObj1["created_at"]);
+          });
+          console.log("p is", p)
+          break;
+        case "Price: Low to High":
+          p = filterProductListings.sort((productListingObj1, productListingObj2) => {
+            return Number(productListingObj1.value) - Number(productListingObj2.value);
+          });
+          break;
+        case "Price: High to Low":
+          p = filterProductListings.sort((productListingObj1, productListingObj2) => {
+            return Number(productListingObj2.value) - Number(productListingObj1.value);
+          });
+          break;
+        case "Featured":
+          p = filterProductListings.sort((productListingObj1, productListingObj2) => {
+            return Number(productListingObj2.rating) - Number(productListingObj1.rating);
+          });
+        default:
+          p = filterProductListings;
+          break;
+      }
   }
 
   return (

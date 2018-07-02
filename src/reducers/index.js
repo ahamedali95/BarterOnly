@@ -4,6 +4,7 @@ const initialState = {
   searchTerm: "",
   sortByOption: "Relevance",
   categorySelected: "All",
+  currentProductListing: null,
   userId: 1
 };
 
@@ -20,6 +21,8 @@ function reducer(state = initialState, action) {
       return {...state, sortByOption: action.payload};
     case "UPDATE_PRODUCT_LISTINGS":
       return {...state, productListings: action.payload};
+    case "SELECT_PRODUCT_LISTING":
+      return {...state, currentProductListing: action.payload};
     default:
       return state;
   }

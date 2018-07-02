@@ -35,10 +35,18 @@ const updateProductListings = (newProductListings) => {
   };
 }
 
+const selectProductListing = (productListing) => {
+  return {
+    type: "SELECT_PRODUCT_LISTING",
+    payload: productListing
+  };
+}
+
 module.exports = {
   setProductListingsAndCategories,
   setCategoryAndResetSearchTermAndSortOption,
   updateSearchTerm,
   updateSortByOption,
-  updateProductListings
+  updateProductListings,
+  selectProductListing
 };
