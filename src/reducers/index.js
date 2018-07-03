@@ -23,6 +23,8 @@ function reducer(state = initialState, action) {
       return {...state, productListings: action.payload};
     case "SELECT_PRODUCT_LISTING":
       return {...state, currentProductListing: action.payload};
+    case "REMOVE_CURRENT_PRODUCT_LISTING":
+      return {...state, currentProductListing: action.payload}
     default:
       return state;
   }

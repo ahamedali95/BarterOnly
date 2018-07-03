@@ -19,6 +19,8 @@ class ProductListingContainer extends Component {
       // productListings = productListings.filter((productListingObj) => {
       //   return !productListingObj.isSold
       // });
+      //We are doing this in ProductListingsCollection.js because if I do this here,
+      //then myListings will show only products which are sold, not ALL products. 
       this.props.setProductListingsAndCategories(productListings, categories);
     });
   }

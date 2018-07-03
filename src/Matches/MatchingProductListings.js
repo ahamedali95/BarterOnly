@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import ProductListingDetails from "../ProductListings/ProductListingDetails.js";
+import { selectProductListing } from "../actions/index.js";
 import { Table, Icon } from "semantic-ui-react";
 
 class MatchingProductListings extends Component {
@@ -50,7 +52,7 @@ class MatchingProductListings extends Component {
         <Table.Row>
           <Table.Cell>
             <img src={productListingObj.image}/>
-            <p>{productListingObj.name}</p>
+            <p><a onClick={() => this.props.selectProductListing(productListingObj)}>{productListingObj.name}</a></p>
             <p>{productListingObj.description}</p>
           </Table.Cell>
           <Table.Cell>${productListingObj.value}</Table.Cell>
@@ -73,20 +75,27 @@ class MatchingProductListings extends Component {
 
   render() {
     return (
-      <Table>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell>Content</Table.HeaderCell>
-            <Table.HeaderCell>Value</Table.HeaderCell>
-            <Table.HeaderCell>Exchange Item</Table.HeaderCell>
-            <Table.HeaderCell>Date</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
+      <div>
+      {
+        this.props.currentProductListing === null ?
+          <Table>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell>Content</Table.HeaderCell>
+                <Table.HeaderCell>Value</Table.HeaderCell>
+                <Table.HeaderCell>Exchange Item</Table.HeaderCell>
+                <Table.HeaderCell>Date</Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
 
-        <Table.Body>
-          {this.productListingsRow()}
-        </Table.Body>
-      </Table>
+            <Table.Body>
+              {this.productListingsRow()}
+            </Table.Body>
+          </Table>
+          :
+          <ProductListingDetails></ProductListingDetails>
+      }
+      </div>
     );
   }
 }
@@ -94,8 +103,17 @@ class MatchingProductListings extends Component {
 const mapStateToProps = (state) => {
   return {
     productListings: state.productListings,
-    userId: state.userId
+    userId: state.userId,
+    currentProductListing: state.currentProductListing
   };
 }
 
-export default connect(mapStateToProps)(MatchingProductListings);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    selectProductListing: (productListing) => {
+      dispatch(selectProductListing(productListing));
+    }
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MatchingProductListings);

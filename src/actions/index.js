@@ -42,11 +42,19 @@ const selectProductListing = (productListing) => {
   };
 }
 
+const removeCurrentProductListing = () => {
+  return {
+    type: "REMOVE_CURRENT_PRODUCT_LISTING",
+    payload: null
+  }
+}
+
 module.exports = {
   setProductListingsAndCategories,
   setCategoryAndResetSearchTermAndSortOption,
   updateSearchTerm,
   updateSortByOption,
   updateProductListings,
-  selectProductListing
+  selectProductListing,
+  removeCurrentProductListing
 };

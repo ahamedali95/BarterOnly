@@ -97,7 +97,7 @@ const ProductListingsCollection = (props) => {
 
 
   //Conditional rendering to display either a collection of product listings or
-  //a specific product listing. If there is exists a currentProductListing, then
+  //a specific product listing. If there exists a currentProductListing, then
   //we must show its details. Otherwise, show the entire collection of
   //product listings.
   return (
@@ -108,7 +108,7 @@ const ProductListingsCollection = (props) => {
           return <ProductListing key={productListingObj.id} productListing={productListingObj}></ProductListing>
         })
         :
-        <ProductListingDetails key={props.currentProductListing.id} productListing={props.currentProductListing}></ProductListingDetails>
+        <ProductListingDetails key={props.currentProductListing.id}></ProductListingDetails>
     }
     </div>
   );
@@ -116,7 +116,7 @@ const ProductListingsCollection = (props) => {
 
 function mapStateToProps(state) {
   return {
-    //Filtering product that are not sold 
+    //Filtering product that are not sold
     productListings: state.productListings.filter((productListingObj) => {
       return !productListingObj.isSold
     }),
