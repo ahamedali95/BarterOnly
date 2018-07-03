@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { removeCurrentProductListing } from "../actions/index.js";
 import { Form, Input, Button } from "semantic-ui-react";
 import adapter from "../adapter.js";
 import { connect } from "react-redux";
@@ -19,6 +20,16 @@ class ProductListingForm extends Component {
       option: "cash",
       exchangeItem: ""
     };
+  }
+
+  //This is very important because if the user decided to switch to this page
+  //after viewing the product details for a particular product and then switch it
+  //back to the all product listings page, then we want to show all the
+  //products, not the previous product details. We need to this on all pages, except
+  //all product listings page
+
+  componentDidMount() {
+    this.props.removeCurrentProductListing();
   }
 
   handleSubmit = (event) => {
@@ -253,4 +264,12 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(ProductListingForm);
+function mapDispatchToProps(dispatch) {
+  return {
+    removeCurrentProductListing: () => {
+      dispatch(removeCurrentProductListing())
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductListingForm);

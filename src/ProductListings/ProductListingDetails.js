@@ -4,7 +4,7 @@ import { Form, Input, Button } from "semantic-ui-react";
 import { Rating } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-import { removeCurrentProductListing } from "../actions/index.js";
+import { removeCurrentProductListing, updateProductListings } from "../actions/index.js";
 
 class ProductListingDetails extends Component {
   constructor(props) {
@@ -16,16 +16,23 @@ class ProductListingDetails extends Component {
     }
   }
 
-
   // handleRating = (event, { name, rating }) => {
   //   this.setState({
   //     [name]: rating
   //   }, () => console.log(this.state));
   // }
 
+  //a fetch GET request happens in this method because once the user pruchased
+  //an item from the
   handleRedirect = () => {
+    this.props.removeCurrentProductListing()
     //browserHistory.push("/product-listings");
-    this.props.removeCurrentProductListing();
+  //   adapter.get("product_listings")
+  //   .then(response => response.json())
+  //   .then(data => {
+  //     this.props.updateProductListings();
+  //     this.props.removeCurrentProductListing();
+  //   });
   }
 
   handleChange = (event, { name, value }) => {
@@ -39,7 +46,7 @@ class ProductListingDetails extends Component {
   handlePurchase = () => {
     //sending a POST request to the purchase
     //Patch the product listings to mark it as sold so that we can filter
-    //the product listings that are not sold.
+    //the product listings that are not sold in the homepage
     const bodyForPurchase = {
       name: this.props.currentProductListing.name,
       description: this.props.currentProductListing.description,
@@ -157,6 +164,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     removeCurrentProductListing: () => {
       dispatch(removeCurrentProductListing())
+    },
+    updateProductListings: (productListings) => {
+      dispatch(updateProductListings(productListings))
     }
   }
 }
