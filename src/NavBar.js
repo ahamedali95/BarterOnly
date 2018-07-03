@@ -45,6 +45,20 @@ const NavBar = () => {
       >
         My Listings
       </NavLink>
+
+      <NavLink
+        to="/matching-listings"
+        exact
+        style={{
+          color: "blue",
+          padding: "20px"
+        }}
+        activeStyle={{
+          color: "red"
+        }}
+      >
+        Matching Listings
+      </NavLink>
     </div>
   );
 };

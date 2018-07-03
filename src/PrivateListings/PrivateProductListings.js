@@ -27,6 +27,13 @@ const PrivateProductListings = (props) => {
             productListingObj.exchange_item
           }
         </Table.Cell>
+        <Table.Cell>{
+          productListingObj.isSold ?
+            <img src="../assets/images/sold-out-png-19.png"/>
+            :
+            null
+          }
+        </Table.Cell>
         <Table.Cell>{productListingObj.created_at}</Table.Cell>
         <Table.Cell>
           <Icon
@@ -64,6 +71,7 @@ const PrivateProductListings = (props) => {
           <Table.HeaderCell>Value</Table.HeaderCell>
           <Table.HeaderCell>Exchange Item</Table.HeaderCell>
           <Table.HeaderCell>Date</Table.HeaderCell>
+          <Table.HeaderCell></Table.HeaderCell>
           <Table.HeaderCell>Del</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
