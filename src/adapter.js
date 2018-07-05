@@ -1,11 +1,26 @@
 const URI = "http://localhost:3001/api/v1/";
 
 const adapter = {
+  getToken: function() {
+    return localStorage.getItem("token");
+  },
+  setToken: function(token) {
+    localStorage.setItem("token", token);
+  },
+  getUserId: function() {
+    return localStorage.getItem("userId");
+  },
+  setUserId: function(userId) {
+    localStorage.setItem("userId", userId);
+  },
+  clearLocalStorage: function() {
+    localStorage.clear();
+  },
   get: function(items) {
     const config = {
       headers: {
         "Content-Type": "application/json",
-        "Authorization": localStorage.getItem("token")
+        "Authorization": this.getToken()
       }
     };
 

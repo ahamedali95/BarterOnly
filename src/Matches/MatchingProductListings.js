@@ -1,7 +1,8 @@
 import React, { Component } from "react";
+import adapter from "../adapter.js";
 import { connect } from "react-redux";
 import ProductListingDetails from "../ProductListings/ProductListingDetails.js";
-import { removeCurrentProductListing, selectProductListing } from "../actions/index.js";
+import { updateProductListings, removeCurrentProductListing, selectProductListing } from "../actions/index.js";
 import { Table, Icon } from "semantic-ui-react";
 
 class MatchingProductListings extends Component {
@@ -17,12 +18,16 @@ class MatchingProductListings extends Component {
 
   componentDidMount() {
     this.props.removeCurrentProductListing();
+
+    adapter.get("product_listings")
+    .then(response => response.json())
+    .then(data => this.props.updateProductListings(data));
   }
 
   itemsUserisLookingFor = () => {
     //Filter products listings belonging to a user and get the items they are looking for
     const p = this.props.productListings.filter((productListingObj) => {
-      return productListingObj.user_id === Number(localStorage.getItem("userId")) && !productListingObj.isSold
+      return productListingObj.user_id === Number(adapter.getUserId()) && !productListingObj.isSold
     }).map((productListingObj) => {
       return productListingObj.exchange_item;
     }).filter((exchangeItem) => {
@@ -46,7 +51,7 @@ class MatchingProductListings extends Component {
     //since we are trying to match the products the user is looking to buy or exchange
 
     const productListings = this.props.productListings.filter((productListingObj) => {
-      return productListingObj.user_id !== Number(localStorage.getItem("userId")) && !productListingObj.isSold;
+      return productListingObj.user_id !== Number(adapter.getUserId()) && !productListingObj.isSold;
     });
 
     const newProductListings = [];
@@ -129,6 +134,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    updateProductListings: (newProductListings) => {
+      dispatch(updateProductListings(newProductListings));
+    },
     selectProductListing: (productListing) => {
       dispatch(selectProductListing(productListing));
     },

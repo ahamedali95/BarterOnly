@@ -36,10 +36,12 @@ class UserRegisterForm extends Component {
       //We store the token in the local storage rather than in the global state
       //since page refresh will cause the state to reset. But the local storage
       //will persist the token until it has been removed.
-      localStorage.setItem("token", data.token);
-
-      localStorage.setItem("userId", data.userId);
-      this.props.setUserId(data.userId);
+      adapter.setToken(data.token);
+      adapter.setUserId(data.userId);
+      // localStorage.setItem("token", data.token);
+      //
+      // localStorage.setItem("userId", data.userId);
+      // this.props.setUserId(data.userId);
       this.props.history.push("/product-listings");
     });
   }

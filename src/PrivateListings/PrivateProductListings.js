@@ -24,7 +24,7 @@ class PrivateProductListings extends Component {
     //VERY IMPORTANT CHANGE HERE SINCE ADDING OAUTH!
     //Currently, once the user logs in, the user id is stored in the local storage
     //and we need to fetch all private listings belonging to that user.
-    adapter.get(`users/${localStorage.getItem("userId")}/product_listings`)
+    adapter.get(`users/${adapter.getUserId()}/product_listings`)
     .then(response => response.json())
     .then(data => this.props.updateProductListings(data));
   }

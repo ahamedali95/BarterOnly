@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
+import adapter from "./adapter.js";
 import UserRegisterForm from "./Register/UserRegisterForm.js";
 import LoginForm from "./Login/LoginForm.js";
 import ProductListingContainer from "./ProductListings/ProductListingContainer.js";
@@ -34,7 +35,7 @@ class App extends Component {
           <div>
             <NavBar className="navbar" handleClick={this.handleClick}/>
             {
-              !localStorage.getItem("token") ?
+              !adapter.getToken() ?
                 <React.Fragment>
                   <Route exact path="/register" render={(props) => <UserRegisterForm {...props}/>}></Route>
                   <Route exact path="/login" render={(props) => <LoginForm {...props}/>}></Route>

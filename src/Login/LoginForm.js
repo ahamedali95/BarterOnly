@@ -22,9 +22,15 @@ class LoginForm extends Component {
     adapter.post("/sessions", bodyForLogin)
     .then(response => response.json())
     .then(data => {
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("userId", data.userId);
-      this.props.history.push("/product-listings");
+      //Here we are verifying the json that is returned back from the server.
+      //If there is no token or userId, then we know that credentials did not
+      //match so will issue an error. Otherwise, set local storage and push
+      //history
+      if(!!data.token && !!data.userId) {
+        adapter.setToken(data.token);
+        adapter.setUserId(data.userId);
+        this.props.history.push("/product-listings");
+      }
     });
   }
 
