@@ -22,7 +22,7 @@ class MatchingProductListings extends Component {
   itemsUserisLookingFor = () => {
     //Filter products listings belonging to a user and get the items they are looking for
     const p = this.props.productListings.filter((productListingObj) => {
-      return productListingObj.user_id === this.props.userId && !productListingObj.isSold
+      return productListingObj.user_id === Number(localStorage.getItem("userId")) && !productListingObj.isSold
     }).map((productListingObj) => {
       return productListingObj.exchange_item;
     }).filter((exchangeItem) => {
@@ -46,7 +46,7 @@ class MatchingProductListings extends Component {
     //since we are trying to match the products the user is looking to buy or exchange
 
     const productListings = this.props.productListings.filter((productListingObj) => {
-      return productListingObj.user_id !== this.props.userId && !productListingObj.isSold;
+      return productListingObj.user_id !== Number(localStorage.getItem("userId")) && !productListingObj.isSold;
     });
 
     const newProductListings = [];

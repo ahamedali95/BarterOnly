@@ -5,8 +5,8 @@ import { connect } from "react-redux";
 import { Form, Input, Button } from "semantic-ui-react";
 
 class UserRegisterForm extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       firstName: "",
@@ -40,6 +40,7 @@ class UserRegisterForm extends Component {
 
       localStorage.setItem("userId", data.userId);
       this.props.setUserId(data.userId);
+      this.props.history.push("/product-listings");
     });
   }
 
@@ -66,6 +67,7 @@ class UserRegisterForm extends Component {
   }
 
   render() {
+    console.log("inside registration form", this.props)
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Field

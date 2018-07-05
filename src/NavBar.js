@@ -1,22 +1,43 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const NavBar = () => {
+const NavBar = (props) => {
   return (
     <div className="navbar">
-      <NavLink
-        to="/register"
-        exact
-        style={{
-          color: "blue",
-          padding: "20px"
-        }}
-        activeStyle={{
-          color: "red"
-        }}
-      >
-        Register
-      </NavLink>
+      {
+        !localStorage.getItem("token") ?
+          <React.Fragment>
+            <NavLink
+              to="/register"
+              exact
+              style={{
+                color: "blue",
+                padding: "20px"
+              }}
+              activeStyle={{
+                color: "red"
+              }}
+            >
+              Register
+            </NavLink>
+
+            <NavLink
+              to="/login"
+              exact
+              style={{
+                color: "blue",
+                padding: "20px"
+              }}
+              activeStyle={{
+                color: "red"
+              }}
+            >
+              Login
+            </NavLink>
+          </React.Fragment>
+          :
+          <button onClick={props.handleClick}>Log out</button>
+      }
 
       <NavLink
         to="/product-listings"
