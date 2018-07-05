@@ -1,8 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { removeCurrentProductListing } from "../actions/index.js";
 import { Form, Input, Button } from "semantic-ui-react";
 import adapter from "../adapter.js";
 import { connect } from "react-redux";
+import Dropzone from "react-dropzone";
+import request from "superagent";
+import { CLOUDINARY_UPLOAD_PRESET, CLOUDINARY_UPLOAD_URL }  from "../keys.js";
+
 
 class ProductListingForm extends Component {
   constructor() {
@@ -56,7 +60,7 @@ class ProductListingForm extends Component {
       exchange_item: exchange_item,
       rating: 0,
       category_id: this.state.category,
-      user_id: Number(localStorage.getItem("userId"))
+      user_id: Number(adapter.getUserId())
     };
 
     adapter.post("product_listings", body)
@@ -126,6 +130,31 @@ class ProductListingForm extends Component {
     });
   }
 
+  onImageDrop = (files) => {
+    this.setState({
+      uploadedFile: files[0]
+    }, () => this.handleImageUpload(files[0]));
+  }
+
+  //Uploading to the image to the API.
+  handleImageUpload = (file) => {
+    let upload = request.post(CLOUDINARY_UPLOAD_URL)
+                        .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
+                        .field('file', file);
+
+    upload.end((err, response) => {
+      if (err) {
+        console.error(err);
+      }
+
+      if (response.body.secure_url !== '') {
+        this.setState({
+          image: response.body.secure_url
+        }, () => console.log("INSIDE UPLOAD PIC", this.state));
+      }
+    });
+  }
+
   render() {
     return (
       <div>
@@ -151,16 +180,12 @@ class ProductListingForm extends Component {
             value={this.state.description}
             onChange={this.handleChange}
           />
-          <Form.Field
-            required
-            label="Image URI"
-            type="text"
-            name="image"
-            control={Input}
-            placeholder="Image URI"
-            value={this.state.image}
-            onChange={this.handleChange}
-          />
+          <Dropzone
+            multiple={false}
+            accept="image/*"
+            onDrop={this.onImageDrop}>
+            <p>Drop an image or click to select a file to upload.</p>
+          </Dropzone>
           <Form.Field
             required
             label="Value"
