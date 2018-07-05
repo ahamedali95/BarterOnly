@@ -13,7 +13,12 @@ class PrivateProductListings extends Component {
   constructor(props) {
     super(props);
   }
-
+  
+  //This is very important because if the user decided to switch to this page
+  //after viewing the product details for a particular product and then switch it
+  //back to the all product listings page, then we want to show all the
+  //products, not the previous product details. We need to this on all pages, except
+  //all product listings page
   componentDidMount() {
     this.props.removeCurrentProductListing();
   }

@@ -49,6 +49,13 @@ const removeCurrentProductListing = () => {
   }
 }
 
+const setToken = (token) => {
+  return {
+    type: "SET_TOKEN",
+    payload: token
+  };
+}
+
 module.exports = {
   setProductListingsAndCategories,
   setCategoryAndResetSearchTermAndSortOption,
@@ -56,5 +63,6 @@ module.exports = {
   updateSortByOption,
   updateProductListings,
   selectProductListing,
-  removeCurrentProductListing
+  removeCurrentProductListing,
+  setToken
 };

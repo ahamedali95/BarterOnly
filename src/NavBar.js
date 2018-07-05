@@ -5,6 +5,20 @@ const NavBar = () => {
   return (
     <div className="navbar">
       <NavLink
+        to="/register"
+        exact
+        style={{
+          color: "blue",
+          padding: "20px"
+        }}
+        activeStyle={{
+          color: "red"
+        }}
+      >
+        Register
+      </NavLink>
+
+      <NavLink
         to="/product-listings"
         exact
         style={{

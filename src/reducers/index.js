@@ -5,7 +5,8 @@ const initialState = {
   sortByOption: "Relevance",
   categorySelected: "All",
   currentProductListing: null,
-  userId: 1
+  userId: 1,
+  token: null
 };
 
 function reducer(state = initialState, action) {
@@ -25,6 +26,8 @@ function reducer(state = initialState, action) {
       return {...state, currentProductListing: action.payload};
     case "REMOVE_CURRENT_PRODUCT_LISTING":
       return {...state, currentProductListing: action.payload}
+    case "SET_TOKEN":
+      return {...state, token: action.payload}
     default:
       return state;
   }

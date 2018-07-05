@@ -33,6 +33,7 @@ class ProductListingForm extends Component {
   }
 
   handleSubmit = (event) => {
+    event.preventDefault();
     //Decide if the the seller is looking for any exchange item,
     //if the option is cash,
         //then exchange item should be set to null

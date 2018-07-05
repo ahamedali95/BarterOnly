@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
+import UserRegisterForm from "./Register/UserRegisterForm.js";
 import ProductListingContainer from "./ProductListings/ProductListingContainer.js";
 import ProductListingForm from "./NewListing/ProductListingForm.js";
 import PrivateProductListings from "./PrivateListings/PrivateProductListings.js";
@@ -14,6 +15,7 @@ class App extends Component {
         <Router>
           <div>
             <NavBar className="navbar"/>
+            <Route exact path="/register" component={UserRegisterForm}></Route>
             <Route exact path="/product-listings" component={ProductListingContainer}></Route>
             <Route exact path="/new-product-listing" component={ProductListingForm}></Route>
             <Route exact path="/my-product-listings" component={PrivateProductListings}></Route>

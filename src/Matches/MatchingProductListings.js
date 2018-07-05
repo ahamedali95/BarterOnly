@@ -21,12 +21,21 @@ class MatchingProductListings extends Component {
 
   itemsUserisLookingFor = () => {
     //Filter products listings belonging to a user and get the items they are looking for
-    const itemsUserisLookingFor = this.props.productListings.filter((productListingObj) => {
-      return productListingObj.user_id === this.props.userId;
+    const p = this.props.productListings.filter((productListingObj) => {
+      return productListingObj.user_id === this.props.userId && !productListingObj.isSold
     }).map((productListingObj) => {
       return productListingObj.exchange_item;
-    }).filter((exchange_item) => {
-      return exchange_item !== null;
+    }).filter((exchangeItem) => {
+      return exchangeItem !== null;
+    })
+
+    //Remove duplicates
+    const itemsUserisLookingFor = [];
+
+    p.forEach((exchangeItem) => {
+      if(itemsUserisLookingFor.indexOf(exchangeItem) === -1) {
+        itemsUserisLookingFor.push(exchangeItem);
+      }
     });
 
     return itemsUserisLookingFor;
@@ -56,7 +65,7 @@ class MatchingProductListings extends Component {
 
   productListingsRow = () => {
     const productListings = this.matchingProductListings(this.itemsUserisLookingFor());
-
+    //debugger
     const rows = productListings.map((productListingObj) => {
       return (
         <Table.Row>

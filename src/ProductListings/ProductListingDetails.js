@@ -22,17 +22,14 @@ class ProductListingDetails extends Component {
   //   }, () => console.log(this.state));
   // }
 
-  //a fetch GET request happens in this method because once the user pruchased
-  //an item from the
+  //a fetch GET request happens in this method because once the user purchased
+  //an item from the product listing view details page and goes back to the
+  //all product listings page, then we need to update the product listings with
+  //new new information since an item is purchased by the user.
   handleRedirect = () => {
     this.props.removeCurrentProductListing()
     //browserHistory.push("/product-listings");
-  //   adapter.get("product_listings")
-  //   .then(response => response.json())
-  //   .then(data => {
-  //     this.props.updateProductListings();
-  //     this.props.removeCurrentProductListing();
-  //   });
+
   }
 
   handleChange = (event, { name, value }) => {
@@ -67,15 +64,17 @@ class ProductListingDetails extends Component {
     };
 
     Promise.all([
-      adapter.post("purchases", bodyForPurchase),
-      adapter.patch(`product_listings/${this.props.currentProductListing.id}`,bodyForProductListing)
-    ])
-    .then(([response1, response2]) => Promise.all([response1.json(), response2.json()]))
-    .then(([data1, data2]) => console.log(data1, data2))
+      adapter.patch(`product_listings/${this.props.currentProductListing.id}`,bodyForProductListing),
+      adapter.post("purchases", bodyForPurchase)
+    ]).then(() => {this.getProducts()});
+  }
 
-    // .then(response => response.json())
-    // .then(data => {debugger})
-
+  //Promise.all somehow prioritize fetch GET request since I need to get new product
+  //listings after the product has been pruchased, we need that new list. 
+  getProducts = () => {
+    adapter.get("product_listings")
+    .then(response => response.json())
+    .then(data => this.props.updateProductListings(data));
   }
 
   purchaseOptions = () => {
