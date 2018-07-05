@@ -56,7 +56,7 @@ class ProductListingForm extends Component {
       exchange_item: exchange_item,
       rating: 0,
       category_id: this.state.category,
-      user_id: 1
+      user_id: Number(localStorage.getItem("userId"))
     };
 
     adapter.post("product_listings", body)

@@ -49,10 +49,10 @@ const removeCurrentProductListing = () => {
   }
 }
 
-const setToken = (token) => {
+const setUserId = (userId) => {
   return {
-    type: "SET_TOKEN",
-    payload: token
+    type: "SET_USER_ID",
+    payload: userId
   };
 }
 
@@ -64,5 +64,5 @@ module.exports = {
   updateProductListings,
   selectProductListing,
   removeCurrentProductListing,
-  setToken
+  setUserId
 };

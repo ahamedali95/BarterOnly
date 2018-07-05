@@ -2,7 +2,14 @@ const URI = "http://localhost:3001/api/v1/";
 
 const adapter = {
   get: function(items) {
-    return fetch(URI + items);
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": localStorage.getItem("token")
+      }
+    };
+
+    return fetch(URI + items, config);
   },
   post: function(items, body) {
     const config = {

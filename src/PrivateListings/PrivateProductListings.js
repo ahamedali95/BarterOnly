@@ -13,7 +13,7 @@ class PrivateProductListings extends Component {
   constructor(props) {
     super(props);
   }
-  
+
   //This is very important because if the user decided to switch to this page
   //after viewing the product details for a particular product and then switch it
   //back to the all product listings page, then we want to show all the
@@ -21,13 +21,20 @@ class PrivateProductListings extends Component {
   //all product listings page
   componentDidMount() {
     this.props.removeCurrentProductListing();
+    //VERY IMPORTANT CHANGE HERE SINCE ADDING OAUTH!
+    //Currently, once the user logs in, the user id is stored in the local storage
+    //and we need to fetch all private listings belonging to that user.
+    adapter.get(`users/${localStorage.getItem("userId")}/product_listings`)
+    .then(response => response.json())
+    .then(data => this.props.updateProductListings(data));
   }
 
   productListingsRows = () => {
     console.log("INSIDE PRIVATE ProductListings", this.props)
-    const rows = this.props.productListings.filter((productListingObj) => {
-      return productListingObj.user_id === this.props.userId
-    }).map((productListingObj) => {
+    // const rows = this.props.productListings.filter((productListingObj) => {
+    //   return productListingObj.user_id === this.props.userId
+    // })
+    const rows = this.props.productListings.map((productListingObj) => {
       return (
         <Table.Row>
           <Table.Cell>

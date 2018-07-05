@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import adapter from "../adapter.js";
-import { setToken } from "../actions/index.js";
+import { setUserId } from "../actions/index.js";
 import { connect } from "react-redux";
 import { Form, Input, Button } from "semantic-ui-react";
 
@@ -32,7 +32,15 @@ class UserRegisterForm extends Component {
 
     adapter.post("users", bodyForUser)
     .then(response => response.json())
-    .then(data => {this.props.setToken(data.token)});
+    .then(data => {
+      //We store the token in the local storage rather than in the global state
+      //since page refresh will cause the state to reset. But the local storage
+      //will persist the token until it has been removed.
+      localStorage.setItem("token", data.token);
+
+      localStorage.setItem("userId", data.userId);
+      this.props.setUserId(data.userId);
+    });
   }
 
   handleChange = (event, {name, value}) => {
@@ -126,8 +134,8 @@ class UserRegisterForm extends Component {
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    setToken: (token) => {
-      dispatch(setToken(token));
+    setUserId: (userId) => {
+      dispatch(setUserId(userId));
     }
   };
 }
