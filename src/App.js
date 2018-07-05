@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./App.css";
 import adapter from "./adapter.js";
+import { connect } from "react-redux";
+import { removeCurrentProductListing } from "./actions/index.js";
 import UserRegisterForm from "./Register/UserRegisterForm.js";
 import LoginForm from "./Login/LoginForm.js";
 import ProductListingContainer from "./ProductListings/ProductListingContainer.js";
@@ -21,8 +23,11 @@ class App extends Component {
   }
 
   handleClick = () => {
+    //After clicking logout, if the user was in the product listing details page,
+    //then we must show all product listings. how do we do it aagain?
+    //Remove the currentProductListing from the global store.
     localStorage.clear();
-    this.forceUpdate();
+    this.props.removeCurrentProductListing()
     this.setState({
       isNavigationChanged: true
     });
@@ -54,4 +59,13 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    removeCurrentProductListing: () => {
+      dispatch(removeCurrentProductListing())
+    }
+  };
+}
+
+
+export default connect(null, mapDispatchToProps)(App);

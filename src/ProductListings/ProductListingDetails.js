@@ -55,7 +55,7 @@ class ProductListingDetails extends Component {
       mode_of_purchase: this.state.purchaseOption,
       rating: this.props.currentProductListing.rating,
       category_id: this.props.currentProductListing.category_id,
-      user_id: this.props.userId,
+      user_id: Number(adapter.getUserId()),
       seller_id: this.props.currentProductListing.user_id
     };
 
@@ -70,7 +70,7 @@ class ProductListingDetails extends Component {
   }
 
   //Promise.all somehow prioritize fetch GET request since I need to get new product
-  //listings after the product has been pruchased, we need that new list. 
+  //listings after the product has been pruchased, we need that new list.
   getProducts = () => {
     adapter.get("product_listings")
     .then(response => response.json())
@@ -93,8 +93,13 @@ class ProductListingDetails extends Component {
     }
   }
 
-
-  //Here, we need to conditional rendering based on the selected option
+  //Here, we need to conditional rendering since we should not allow a user to
+  //purchase their own product.
+  //If there exists a token and user id and the user id does not match the product
+  //listing user_id,
+    //Then show the select option
+    //Otherwise do not show it.
+  //Also, we need to conditional rendering based on the selected option
   //If the user selects the cash option or exchange option
     //then we show the checkout button
   //If the user selects the offer option
@@ -119,15 +124,20 @@ class ProductListingDetails extends Component {
             :
             this.props.currentProductListing.exchange_item
         }
-        <Form.Select
-          required
-          label="Purchase Options:"
-          name="purchaseOption"
-          placeholder="Purchase Options"
-          options={this.purchaseOptions()}
-          value={this.state.purchaseOption}
-          onChange={(event, { name, value }) => this.handleChange(event, { name, value })}
-        />
+        {
+          !!adapter.getToken() && !!adapter.getUserId() && Number(adapter.getUserId()) !== this.props.currentProductListing.user_id ?
+            <Form.Select
+              required
+              label="Purchase Options:"
+              name="purchaseOption"
+              placeholder="Purchase Options"
+              options={this.purchaseOptions()}
+              value={this.state.purchaseOption}
+              onChange={(event, { name, value }) => this.handleChange(event, { name, value })}
+            />
+            :
+            null
+        }
         {
           this.state.purchaseOption === "Cash" || this.state.purchaseOption === "Exchange Item" ?
            <Button onClick={this.handlePurchase}>Purchase</Button>
