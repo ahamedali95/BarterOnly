@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ProductListing from "./ProductListing.js";
 import ProductListingDetails from "./ProductListingDetails.js";
 import { connect } from "react-redux";
+import LoaderForCollection from "./LoaderForCollection.js";
 
 const ProductListingsCollection = (props) => {
   console.log("INSIDE ProductListingsCollection", props)
@@ -95,7 +96,6 @@ const ProductListingsCollection = (props) => {
       }
   }
 
-
   //Conditional rendering to display either a collection of product listings or
   //a specific product listing. If there exists a currentProductListing, then
   //we must show its details. Otherwise, show the entire collection of
@@ -103,7 +103,7 @@ const ProductListingsCollection = (props) => {
   return (
     <div>
     {
-      props.currentProductListing === null ?
+      props.currentProductListing === null ? 
         p.map((productListingObj) => {
           return <ProductListing key={productListingObj.id} productListing={productListingObj}></ProductListing>
         })

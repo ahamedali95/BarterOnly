@@ -38,6 +38,13 @@ class ProductListingForm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+
+    //get the id of the category so that we can send a POST request
+    //to store the product listing. REMEMBER - product listing belongs
+    //to a category
+    const categoryId = this.props.categories.find((categoryObj) => {
+      return categoryObj.name === this.state.category;
+    }).id;
     //Decide if the the seller is looking for any exchange item,
     //if the option is cash,
         //then exchange item should be set to null
@@ -59,8 +66,9 @@ class ProductListingForm extends Component {
       delivery_method: this.state.deliveryMethod,
       exchange_item: exchange_item,
       rating: 0,
-      category_id: this.state.category,
-      user_id: Number(adapter.getUserId())
+      category_id: categoryId,
+      user_id: Number(adapter.getUserId()),
+      isSold: false
     };
 
     adapter.post("product_listings", body)
@@ -85,7 +93,10 @@ class ProductListingForm extends Component {
   }
 
   handleChange = (event, {name, value}) => {
-    if (event.target.value === undefined) {
+    //get the id of the category so that we can send a POST request
+    //to store the product listing. REMEMBER - product listing belongs
+    //to a category
+    if(event.target.value === undefined) {
       this.setState({
         [name]: value
       }, () => console.log(this.state));
@@ -186,6 +197,12 @@ class ProductListingForm extends Component {
             onDrop={this.onImageDrop}>
             <p>Drop an image or click to select a file to upload.</p>
           </Dropzone>
+          {
+            this.state.image.length !== 0 ?
+              <img src={this.state.image}/>
+              :
+              null
+          }
           <Form.Field
             required
             label="Value"
@@ -234,13 +251,6 @@ class ProductListingForm extends Component {
             options={this.categoryOptions()}
             value={this.state.category}
             onChange={(event, { name, value }) => {
-              //get the id of the category so that we can send a POST request
-              //to store the product listing. REMEMBER - product listing belongs
-              //to a category
-              value = this.props.categories.find((categoryObj) => {
-                return categoryObj.name === value;
-              }).id;
-
               this.handleChange(event, { name, value });
             }}
           />

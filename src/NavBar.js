@@ -1,101 +1,98 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
+import { Menu } from "semantic-ui-react"
 
-const NavBar = (props) => {
-  return (
-    <div className="navbar">
-      {
-        !localStorage.getItem("token") ?
-          <React.Fragment>
-            <NavLink
-              to="/register"
-              exact
-              style={{
-                color: "blue",
-                padding: "20px"
-              }}
-              activeStyle={{
-                color: "red"
-              }}
-            >
-              Register
-            </NavLink>
+class NavBar extends Component {
+  constructor() {
+    super();
 
-            <NavLink
-              to="/login"
-              exact
-              style={{
-                color: "blue",
-                padding: "20px"
-              }}
-              activeStyle={{
-                color: "red"
-              }}
-            >
-              Login
-            </NavLink>
-          </React.Fragment>
-          :
-          <button onClick={props.handleClick}>Log out</button>
-      }
+    this.state = {
+      menuItem: null
+    };
+  }
 
-      <NavLink
-        to="/product-listings"
-        exact
-        style={{
-          color: "blue",
-          padding: "20px"
-        }}
-        activeStyle={{
-          color: "red"
-        }}
-      >
-        Product Listings
-      </NavLink>
+  handleClick = (event, { name }) => {
+    this.setState({
+      menuItem: name
+    });
+  }
 
-      <NavLink
-        to="/new-product-listing"
-        exact
-        style={{
-          color: "blue",
-          padding: "20px"
-        }}
-        activeStyle={{
-          color: "red"
-        }}
-      >
-        Create a Product Listing
-      </NavLink>
+  render() {
+    return (
+      <Menu>
+        {
+          !localStorage.getItem("token") ?
+            <React.Fragment>
+              <Menu.Item
+                as={NavLink}
+                to="/register"
+                name="register"
+                active={this.state.menuItem === "register"}
+                onClick={this.handleClick}
+              >
+                Register
+              </Menu.Item>
 
-      <NavLink
-        to="/my-product-listings"
-        exact
-        style={{
-          color: "blue",
-          padding: "20px"
-        }}
-        activeStyle={{
-          color: "red"
-        }}
-      >
-        My Listings
-      </NavLink>
+              <Menu.Item
+                as={NavLink}
+                to="/login"
+                name="login"
+                active={this.state.menuItem === "login"}
+                onClick={this.handleClick}
+              >
+                Login
+              </Menu.Item>
+            </React.Fragment>
+            :
+            <React.Fragment>
+              <button onClick={this.props.handleClick}>Log out</button>
 
-      <NavLink
-        to="/matching-listings"
-        exact
-        style={{
-          color: "blue",
-          padding: "20px"
-        }}
-        activeStyle={{
-          color: "red"
-        }}
-      >
-        Matching Listings
-      </NavLink>
-    </div>
-  );
-};
+              <Menu.Item
+                as={NavLink}
+                to="/new-product-listing"
+                name="newProductListing"
+                active={this.state.menuItem === "newProductListing"}
+                onClick={this.handleClick}
+              >
+                Create a Product Listing
+              </Menu.Item>
+
+              <Menu.Item
+                as={NavLink}
+                to="/my-product-listings"
+                name="myProductListings"
+                active={this.state.menuItem === "myProductListings"}
+                onClick={this.handleClick}
+              >
+                Private Listings
+              </Menu.Item>
+
+              <Menu.Item
+                as={NavLink}
+                to="/matching-listings"
+                name="matchingProductListings"
+                active={this.state.menuItem === "matchingProductListings"}
+                onClick={this.handleClick}
+              >
+                Matching Listings
+              </Menu.Item>
+            </React.Fragment>
+        }
+
+          <Menu.Item
+            as={NavLink}
+            to="/product-listings"
+            name="productListings"
+            active={this.state.menuItem === "productListings"}
+            onClick={this.handleClick}
+          >
+            Product Listings
+          </Menu.Item>
+
+      </Menu>
+    );
+  }
+}
+
 
 export default NavBar;

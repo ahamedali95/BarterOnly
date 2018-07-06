@@ -20,7 +20,7 @@ class ProductListingContainer extends Component {
       //   return !productListingObj.isSold
       // });
       //We are doing this in ProductListingsCollection.js because if I do this here,
-      //then myListings will show only products which are sold, not ALL products. 
+      //then myListings will show only products which are sold, not ALL products.
       this.props.setProductListingsAndCategories(productListings, categories);
     });
   }

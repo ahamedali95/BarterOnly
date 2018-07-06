@@ -40,13 +40,24 @@ class App extends Component {
           <div>
             <NavBar className="navbar" handleClick={this.handleClick}/>
             {
-              !adapter.getToken() ?
+              !localStorage.getItem("token") ?
                 <React.Fragment>
                   <Route exact path="/register" render={(props) => <UserRegisterForm {...props}/>}></Route>
                   <Route exact path="/login" render={(props) => <LoginForm {...props}/>}></Route>
                 </React.Fragment>
                 :
-                <Redirect exact path="/product-listings"/>
+                <Redirect to={{pathname: "/product-listings"}} push/>
+            }
+
+            {
+              !!localStorage.getItem("token") ?
+                <React.Fragment>
+                  <Route exact path="/new-product-listing" render={(props) => <ProductListingForm {...props}/>}></Route>
+                  <Route exact path="/my-product-listings" render={(props) => <PrivateProductListings {...props}/>}></Route>
+                  <Route exact path="/matching-listings" render={(props) => <MatchingProductListings {...props}/>}></Route>
+                </React.Fragment>
+                :
+                <Redirect to={{pathname: "/login"}} push/>
             }
             <Route exact path="/product-listings" component={ProductListingContainer}></Route>
             <Route exact path="/new-product-listing" component={ProductListingForm}></Route>
