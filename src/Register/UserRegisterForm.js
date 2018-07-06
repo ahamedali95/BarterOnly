@@ -3,6 +3,7 @@ import adapter from "../adapter.js";
 import { setUserId } from "../actions/index.js";
 import { connect } from "react-redux";
 import { Form, Input, Button } from "semantic-ui-react";
+import { Message } from "semantic-ui-react";
 
 class UserRegisterForm extends Component {
   constructor(props) {
@@ -14,7 +15,9 @@ class UserRegisterForm extends Component {
       location: null,
       username: "",
       password: "",
-      passwordConfirmation: ""
+      passwordConfirmation: "",
+      isError: false,
+      errorMessages: []
     };
   }
 
@@ -36,13 +39,19 @@ class UserRegisterForm extends Component {
       //We store the token in the local storage rather than in the global state
       //since page refresh will cause the state to reset. But the local storage
       //will persist the token until it has been removed.
-      adapter.setToken(data.token);
-      adapter.setUserId(data.userId);
-      // localStorage.setItem("token", data.token);
-      //
-      // localStorage.setItem("userId", data.userId);
-      // this.props.setUserId(data.userId);
-      this.props.history.push("/product-listings");
+      //Check whether the json that is sent to the client has errors,
+      //if it does, then we know the backend validations failed. Display the
+      //error messages. Otherwise, redirect to all prouct listings page. 
+      if(!!data.errors) {
+        this.setState({
+          isError: true,
+          errorMessages: data.errors
+        });
+      } else {
+        adapter.setToken(data.token);
+        adapter.setUserId(data.userId);
+        this.props.history.push("/product-listings");
+      }
     });
   }
 
@@ -68,8 +77,17 @@ class UserRegisterForm extends Component {
     });
   }
 
-  render() {
-    console.log("inside registration form", this.props)
+  loadErrors = () => {
+    return (
+      <Message
+        error
+        header='There was some errors with your submission'
+        list={this.state.errorMessages}
+      />
+    );
+  }
+
+  loadForm = () => {
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Field
@@ -132,7 +150,25 @@ class UserRegisterForm extends Component {
         />
         <Button>Sign Up</Button>
       </Form>
+    );
+  }
 
+  render() {
+    console.log("inside registration form", this.props)
+    return (
+      <div>
+        {
+          this.state.isError ?
+            <React.Fragment>
+              {this.loadErrors()}
+              {this.loadForm()}
+            </React.Fragment>
+            :
+            <React.Fragment>
+              {this.loadForm()}
+            </React.Fragment>
+        }
+      </div>
     );
   }
 }

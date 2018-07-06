@@ -60,9 +60,10 @@ class App extends Component {
                 <Redirect to={{pathname: "/login"}} push/>
             }
             <Route exact path="/product-listings" component={ProductListingContainer}></Route>
+            {/*
             <Route exact path="/new-product-listing" component={ProductListingForm}></Route>
             <Route exact path="/my-product-listings" component={PrivateProductListings}></Route>
-            <Route exact path="/matching-listings" component={MatchingProductListings}></Route>
+            <Route exact path="/matching-listings" component={MatchingProductListings}></Route>*/}
           </div>
         </Router>
       </div>

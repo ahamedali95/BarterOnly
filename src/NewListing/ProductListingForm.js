@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { removeCurrentProductListing } from "../actions/index.js";
-import { Form, Input, Button } from "semantic-ui-react";
+import { Form, Input, Button, Select } from "semantic-ui-react";
+import { Message } from "semantic-ui-react";
 import adapter from "../adapter.js";
 import { connect } from "react-redux";
 import Dropzone from "react-dropzone";
@@ -22,7 +23,9 @@ class ProductListingForm extends Component {
       deliveryMethod: null,
       category: null,
       option: "cash",
-      exchangeItem: ""
+      exchangeItem: "",
+      isError: false,
+      errorMessages: []
     };
   }
 
@@ -42,9 +45,22 @@ class ProductListingForm extends Component {
     //get the id of the category so that we can send a POST request
     //to store the product listing. REMEMBER - product listing belongs
     //to a category
-    const categoryId = this.props.categories.find((categoryObj) => {
-      return categoryObj.name === this.state.category;
-    }).id;
+
+    let categoryId = null;
+    //Check to see whether user has selected the category. Otherwise, assign
+    //the product listing to the cateogry "others". Unfortunately,
+    //adding "required" props to Semantic UI react component, does not force the
+    //user to select a category.
+    if(!this.state.category) {
+      categoryId = this.props.categories.find((categoryObj) => {
+        return categoryObj.name === "Others";
+      }).id;
+    } else {
+      categoryId = this.props.categories.find((categoryObj) => {
+        return categoryObj.name === this.state.category;
+      }).id;
+    }
+
     //Decide if the the seller is looking for any exchange item,
     //if the option is cash,
         //then exchange item should be set to null
@@ -72,9 +88,19 @@ class ProductListingForm extends Component {
     };
 
     adapter.post("product_listings", body)
-    // .then(response => response.json())
-    // .then(data => {debugger})
-    .then(() => this.resetForm());
+    .then(response => response.json())
+    .then(data => {
+      if(!!data.errors) {
+        this.setState({
+          isError: true,
+          errorMessages: data.errors
+        });
+      } else {
+        this.setState({
+          isError: false
+        }, () => this.resetForm());
+      }
+    });
   }
 
   resetForm = () => {
@@ -154,11 +180,11 @@ class ProductListingForm extends Component {
                         .field('file', file);
 
     upload.end((err, response) => {
-      if (err) {
+      if(err) {
         console.error(err);
       }
 
-      if (response.body.secure_url !== '') {
+      if(response.body.secure_url !== '') {
         this.setState({
           image: response.body.secure_url
         }, () => console.log("INSIDE UPLOAD PIC", this.state));
@@ -166,130 +192,156 @@ class ProductListingForm extends Component {
     });
   }
 
+  loadErrors = () => {
+    return (
+      <Message
+        error
+        header='There was some errors with your submission'
+        list={this.state.errorMessages}
+      />
+    );
+  }
+
+  loadForm = () => {
+    return (
+      <Form onSubmit={this.handleSubmit}>
+        <Form.Field
+          required
+          label="Name"
+          type="text"
+          name="name"
+          control={Input}
+          placeholder="Product Name"
+          value={this.state.name}
+          onChange={this.handleChange}
+        />
+        <Form.Field
+          required
+          label="Description"
+          type="text"
+          name="description"
+          control={Input}
+          placeholder="Product details"
+          value={this.state.description}
+          onChange={this.handleChange}
+        />
+        <Dropzone
+          multiple={false}
+          accept="image/*"
+          onDrop={this.onImageDrop}>
+          <p>Drop an image or click to select a file to upload.</p>
+        </Dropzone>
+        {
+          this.state.image.length !== 0 ?
+            <img src={this.state.image}/>
+            :
+            null
+        }
+        <Form.Field
+          required
+          label="Value"
+          type="number"
+          name="value"
+          control={Input}
+          placeholder="Value"
+          min="1"
+          step="0.01"
+          pattern="\d+\.\d+\.\d+"
+          value={this.state.value}
+          onChange={this.handleChange}
+        />
+        <Form.Select
+          required
+          label="Condition"
+          name="condition"
+          placeholder="Condition"
+          options={this.conditionOptions()}
+          value={this.state.condition}
+          onChange={(event, { name, value }) => this.handleChange(event, { name, value })}
+        />
+        <Form.Select
+          required
+          label="Location"
+          name="location"
+          placeholder="Location"
+          options={this.locationOptions()}
+          value={this.state.location}
+          onChange={(event, { name, value }) => this.handleChange(event, { name, value })}
+        />
+        <Form.Select
+          required
+          label="Delivery"
+          name="deliveryMethod"
+          placeholder="Delivery"
+          options={this.deliveryOptions()}
+          value={this.state.deliveryMethod}
+          onChange={(event, { name, value }) => this.handleChange(event, { name, value })}
+        />
+        <Form.Select
+          required
+          label="Category"
+          name="category"
+          placeholder="Category"
+          options={this.categoryOptions()}
+          value={this.state.category}
+          onChange={(event, { name, value }) => {
+            this.handleChange(event, { name, value });
+          }}
+        />
+        <Form.Field
+          label="Cash/Trade"
+        />
+        <Form.Checkbox
+          radio
+          label="Cash"
+          name="option"
+          value="cash"
+          checked={this.state.option === "cash"}
+          onChange={(event, { name, value }) => this.handleChange(event, { name, value })}
+        />
+        <Form.Checkbox
+          radio
+          label="Exchange Item"
+          name="option"
+          value="exchange item"
+          checked={this.state.option === "exchange item"}
+          onChange={(event, { name, value }) => this.handleChange(event, { name, value })}
+        />
+        {
+          this.state.option === "exchange item"  ?
+            <Form.Field
+              required
+              label="Describe the item you are looking for"
+              type="text"
+              name="exchangeItem"
+              control={Input}
+              value={this.state.exchangeItem}
+              onChange={this.handleChange}
+            />
+            :
+            null
+        }
+        <Button>Create Listing</Button>
+      </Form>
+    );
+  }
+
   render() {
     return (
       <div>
         <h1>Product Listing</h1>
-        <Form onSubmit={this.handleSubmit}>
-          <Form.Field
-            required
-            label="Name"
-            type="text"
-            name="name"
-            control={Input}
-            placeholder="Product Name"
-            value={this.state.name}
-            onChange={this.handleChange}
-          />
-          <Form.Field
-            required
-            label="Description"
-            type="text"
-            name="description"
-            control={Input}
-            placeholder="Product details"
-            value={this.state.description}
-            onChange={this.handleChange}
-          />
-          <Dropzone
-            multiple={false}
-            accept="image/*"
-            onDrop={this.onImageDrop}>
-            <p>Drop an image or click to select a file to upload.</p>
-          </Dropzone>
-          {
-            this.state.image.length !== 0 ?
-              <img src={this.state.image}/>
-              :
-              null
-          }
-          <Form.Field
-            required
-            label="Value"
-            type="number"
-            name="value"
-            control={Input}
-            placeholder="Value"
-            min="1"
-            step="0.01"
-            pattern="\d+\.\d+\.\d+"
-            value={this.state.value}
-            onChange={this.handleChange}
-          />
-          <Form.Select
-            required
-            label="Condition"
-            name="condition"
-            placeholder="Condition"
-            options={this.conditionOptions()}
-            value={this.state.condition}
-            onChange={(event, { name, value }) => this.handleChange(event, { name, value })}
-          />
-          <Form.Select
-            required
-            label="Location"
-            name="location"
-            placeholder="Location"
-            options={this.locationOptions()}
-            value={this.state.location}
-            onChange={(event, { name, value }) => this.handleChange(event, { name, value })}
-          />
-          <Form.Select
-            required
-            label="Delivery"
-            name="deliveryMethod"
-            placeholder="Delivery"
-            options={this.deliveryOptions()}
-            value={this.state.deliveryMethod}
-            onChange={(event, { name, value }) => this.handleChange(event, { name, value })}
-          />
-          <Form.Select
-            required
-            label="Category"
-            name="category"
-            placeholder="Category"
-            options={this.categoryOptions()}
-            value={this.state.category}
-            onChange={(event, { name, value }) => {
-              this.handleChange(event, { name, value });
-            }}
-          />
-          <Form.Field
-            label="Cash/Trade"
-          />
-          <Form.Checkbox
-            radio
-            label="Cash"
-            name="option"
-            value="cash"
-            checked={this.state.option === "cash"}
-            onChange={(event, { name, value }) => this.handleChange(event, { name, value })}
-          />
-          <Form.Checkbox
-            radio
-            label="Exchange Item"
-            name="option"
-            value="exchange item"
-            checked={this.state.option === "exchange item"}
-            onChange={(event, { name, value }) => this.handleChange(event, { name, value })}
-          />
-          {
-            this.state.option === "exchange item"  ?
-              <Form.Field
-                required
-                label="Describe the item you are looking for"
-                type="text"
-                name="exchangeItem"
-                control={Input}
-                value={this.state.exchangeItem}
-                onChange={this.handleChange}
-              />
-              :
-              null
-          }
-          <Button>Create Listing</Button>
-        </Form>
+        {this.state.isError ?
+          <React.Fragment>
+            {this.loadErrors()}
+            {this.loadForm()}
+          </React.Fragment>
+          :
+          <React.Fragment>
+            {this.loadForm()}
+          </React.Fragment>
+        }
       </div>
+
     );
   }
 }
