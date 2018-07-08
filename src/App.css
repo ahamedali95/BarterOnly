@@ -22,7 +22,189 @@
   font-size: large;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+#menu {
+  float: right;
+  border-style: solid;
+  border-color: green;
+  border-bottom-width: 5px;
+  margin: 20px;
+}
+
+#categories {
+  float: left;
+  margin-top: 70px;
+}
+
+.category {
+  border-style: solid;
+  margin: 2px;
+  width: 150px;
+  color: white !important;
+  background-color: #453D3C;
+  border-radius: 7px;
+  font-family: Arimo;
+  font-weight: bold
+}
+
+#search {
+  border-style: solid;
+  border-color: green;
+  box-sizing: border-box;
+  width: 300px;
+  margin: 10px
+}
+
+#sortBy {
+  border-style: solid;
+  border-color: green;
+  width: 100px;
+}
+
+#heading-for-search-sort-by {
+  color: white;
+}
+
+#wrapper-for-search-sort-by {
+  width: 1300px;
+  border: 1px solid black;
+  overflow: hidden;
+  padding: 20px;
+  background-color: #453D3C;
+  border-radius: 7px;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+body {
+padding: 0;
+margin: 0;
+}
+
+#login-form {
+  display: inline-block;
+  position: absolute;
+  margin: 150px;
+  width: 100%
+}
+
+#register-form {
+  display: inline-block;
+  position: absolute;
+  margin: 150px;
+  width: 100%
+}
+
+.form-input {
+  width: 300px;
+}
+
+#wrapper-for-product-details {
+  width: 1000px;
+  margin-right: 20px;
+  border: 1px solid black;
+  overflow: hidden;
+  padding: 20px;
+  border: 1px solid black;
+  border-width: thin;
+  display: inline-block;
+  margin-top: 90px;
+  border-radius: 7px;
+  border-color: green;
+}
+
+#product-details-name {
+  font-size: 50px;
+  float: center;
+}
+
+#product-details-image {
+  width: 540px;
+  height: auto;
+  border-radius: 7px;
+  float: left;
+  margin: 100px;
+}
+
+/* #product-details-description-heading {
+  font-size: 50px;
+  float: left;
+} */
+
+/* .details {
+  border: 1px solid black;
+  margin-top: 700px;
+}
+
+#details-description {
+  font-style: italic;
+  font-size: 50px;
+  float: left;
+  position: relative;
+}
+
+#details-location {
+  font-style: italic;
+  font-size: 50px;
+  float: left;
+  position: relative;
+} */
+
+#details-description {
+  font-style: italic;
+  font-size: 70px;
+}
+
+#details-location {
+  font-size: 30px;
+}
+
+#details {
+  font-size: 20px;
+  border: 1px solid black;
+  overflow: hidden;
+  width: 650px;
+  float: left;
+  border-color: green;
+  border-width: 2px;
+  border-bottom-width: 5px;
+  border-right-width: 5px;
+  font-family: Arimo;
+}
+
+#details-description {
+  font-style: italic;
+  font-size: 20px;
+  word-wrap: break-word;
+}
+
+#details-description-heading {
+  font-size: 30px;
+  border: 1px solid black;
+  overflow: hidden;
+  width: 650px;
+  float: left;
+  border-bottom-width: 2px;
+  border-color: green;
+  background-color: #453D3C;
+  color: white;
+  font-family: Arimo;
+}
+
+#wanted  {
+  font-size: 20px;
+  border: 1px solid black;
+  overflow: hidden;
+  width: 650px;
+  float: left;
+  border-color: green;
+  border-width: 2px;
+  border-bottom-width: 5px;
+  border-right-width: 5px;
+  font-family: Arimo;
+}
+
+#private-image {
+  display: block;
+  width: 100%;
+  height: auto;
 }

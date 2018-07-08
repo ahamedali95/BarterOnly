@@ -64,7 +64,7 @@ class ProductListingDetails extends Component {
     };
 
     Promise.all([
-      adapter.patch(`product_listings/${this.props.currentProductListing.id}`,bodyForProductListing),
+      adapter.patch(`product_listings/${this.props.currentProductListing.id}`, bodyForProductListing),
       adapter.post("purchases", bodyForPurchase)
     ]).then(() => {this.getProducts()});
   }
@@ -106,54 +106,57 @@ class ProductListingDetails extends Component {
     //then we show the offer button
   render() {
     return (
-      <div>
+      <div id="wrapper-for-product-details">
         <Button onClick={this.handleRedirect}>Back to Product Listings</Button>
-        <h1>{this.props.currentProductListing.name}</h1>
+        <h1 id="product-details-name">{this.props.currentProductListing.name}</h1>
         {/*<Rating icon='star' defaultRating={this.state.rating} maxRating={5} name="rating" onRate={(event, { name, rating }) => this.handleRating(event, { name, rating })}/>*/}
-        <img src={this.props.currentProductListing.image}/>
-        <h2>Description</h2>
-        <p>{this.props.currentProductListing.description}</p>
-        <p>Location: {this.props.currentProductListing.location}</p>
-        <p>Delivery: {this.props.currentProductListing.delivery_method}</p>
-        <p>Condition: {this.props.currentProductListing.condition}</p>
-        <p>Value: {this.props.currentProductListing.value}</p>
-        <h2>Wanted</h2>
-        {
-          this.props.currentProductListing.exchange_item === null ?
-            "Cash"
-            :
-            this.props.currentProductListing.exchange_item
-        }
-        {
-          !!adapter.getToken() && !!adapter.getUserId() && Number(adapter.getUserId()) !== this.props.currentProductListing.user_id ?
-            <Form.Select
-              required
-              label="Purchase Options:"
-              name="purchaseOption"
-              placeholder="Purchase Options"
-              options={this.purchaseOptions()}
-              value={this.state.purchaseOption}
-              onChange={(event, { name, value }) => this.handleChange(event, { name, value })}
-            />
-            :
-            null
-        }
-        {
-          this.state.purchaseOption === "Cash" || this.state.purchaseOption === "Exchange Item" ?
-           <Button onClick={this.handlePurchase}>Purchase</Button>
-           :
-           null
-        }
-        {
-          this.state.purchaseOption === "Offer" ?
-            <div>
-              <input/>
-              <Button>Make an offer</Button>
-            </div>
-            :
-            null
-        }
-
+        <img id="product-details-image" src={this.props.currentProductListing.image}/>
+        <div id="details">
+          <h2 id="details-description-heading">Description</h2>
+          <p id="details-description">{this.props.currentProductListing.description}</p>
+          <p>Location: {this.props.currentProductListing.location}</p>
+          <p>Delivery: {this.props.currentProductListing.delivery_method}</p>
+          <p>Condition: <strong>{this.props.currentProductListing.condition}</strong></p>
+          <p>Value: ${this.props.currentProductListing.value}</p>
+        </div>
+        <div id="wanted">
+          <h2>Wanted</h2>
+          {
+            this.props.currentProductListing.exchange_item === null ?
+              "Cash"
+              :
+              this.props.currentProductListing.exchange_item
+          }
+          {
+            !!adapter.getToken() && !!adapter.getUserId() && Number(adapter.getUserId()) !== this.props.currentProductListing.user_id ?
+              <Form.Select
+                required
+                label="Purchase Options:"
+                name="purchaseOption"
+                placeholder="Purchase Options"
+                options={this.purchaseOptions()}
+                value={this.state.purchaseOption}
+                onChange={(event, { name, value }) => this.handleChange(event, { name, value })}
+              />
+              :
+              null
+          }
+          {
+            this.state.purchaseOption === "Cash" || this.state.purchaseOption === "Exchange Item" ?
+             <Button onClick={this.handlePurchase}>Purchase</Button>
+             :
+             null
+          }
+          {
+            this.state.purchaseOption === "Offer" ?
+              <div>
+                <input/>
+                <Button>Make an offer</Button>
+              </div>
+              :
+              null
+          }
+        </div>
       </div>
     );
   }

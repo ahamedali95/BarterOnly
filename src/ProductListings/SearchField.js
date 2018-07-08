@@ -13,25 +13,20 @@ const SearchField = (props) => {
   //onChange synthetic event is called onSearchChange in semantic.
   return (
     <div>
-    {
-      props.currentProductListing === null ?
-        <Search
-          value={props.searchTerm}
-          onSearchChange={(event) => {
-            props.updateSearchTerm(event.target.value)
-          }}
-        />
-        :
-        null
-    }
+      <Search
+        id="search"
+        value={props.searchTerm}
+        onSearchChange={(event) => {
+          props.updateSearchTerm(event.target.value)
+        }}
+      />
     </div>
   );
 }
 
 function mapStateToProps(state) {
   return {
-    searchTerm: state.searchTerm,
-    currentProductListing: state.currentProductListing
+    searchTerm: state.searchTerm
   };
 }
 

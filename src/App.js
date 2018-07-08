@@ -38,6 +38,11 @@ class App extends Component {
       <div className="App">
         <Router>
           <div>
+            <div className="App">
+            <header className="App-header">
+              <img src="./public/assests/images/banner.png" alt="banner"/>
+            </header>
+            </div>
             <NavBar className="navbar" handleClick={this.handleClick}/>
             {
               !localStorage.getItem("token") ?
@@ -48,7 +53,6 @@ class App extends Component {
                 :
                 <Redirect to={{pathname: "/product-listings"}} push/>
             }
-
             {
               !!localStorage.getItem("token") ?
                 <React.Fragment>
@@ -60,10 +64,12 @@ class App extends Component {
                 <Redirect to={{pathname: "/login"}} push/>
             }
             <Route exact path="/product-listings" component={ProductListingContainer}></Route>
+
             {/*
-            <Route exact path="/new-product-listing" component={ProductListingForm}></Route>
+              <Route exact path="/new-product-listing" component={ProductListingForm}></Route>
             <Route exact path="/my-product-listings" component={PrivateProductListings}></Route>
-            <Route exact path="/matching-listings" component={MatchingProductListings}></Route>*/}
+            <Route exact path="/matching-listings" component={MatchingProductListings}></Route>
+            */}
           </div>
         </Router>
       </div>

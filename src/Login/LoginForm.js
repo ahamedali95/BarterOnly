@@ -62,8 +62,9 @@ class LoginForm extends Component {
 
   loadForm = () => {
     return (
-      <Form onSubmit={this.handleSubmit} id="login-form">
+      <Form id="login-form" onSubmit={this.handleSubmit} id="login-form">
         <Form.Field
+          className="form-input"
           required
           label="Username"
           name="username"
@@ -73,6 +74,7 @@ class LoginForm extends Component {
           onChange={this.handleChange}
         />
         <Form.Field
+          className="form-input"
           required
           label="Password"
           type="password"

@@ -58,20 +58,27 @@ class ProductListingContainer extends Component {
     return (
       <div>
         <Categories/>
-        <SearchField/>
-        <SortSelection/>
+        {
+          this.props.currentProductListing === null ?
+            <div id="wrapper-for-search-sort-by">
+              <h1 id="heading-for-search-sort-by">Search Here For Whats Wanted:</h1>
+              <SearchField/>
+              <SortSelection/>
+            </div>
+            :
+            null
+        }
         <ProductListingsCollection/>
       </div>
     );
   }
 }
 
-// function mapStateToProps(state) {
-//   return {
-//     categories: state.categories,
-//     productListings: state.productListings
-//   };
-// }
+function mapStateToProps(state) {
+  return {
+    currentProductListing: state.currentProductListing
+  };
+}
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -90,4 +97,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(null, mapDispatchToProps)(ProductListingContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductListingContainer);

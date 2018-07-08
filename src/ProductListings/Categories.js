@@ -6,12 +6,13 @@ import { List } from "semantic-ui-react";
 const Categories = (props) => {
   console.log("inside categories", props)
   return (
-    <List link>
-      <List.Item as="a" onClick={(event) => props.setCategoryAndResetSearchTermAndSortOption("All")}>All</List.Item>
+    <List link id="categories">
+      <List.Item className="category" as="a" onClick={(event) => props.setCategoryAndResetSearchTermAndSortOption("All")}>All</List.Item>
       {
         props.categories.map((categoryObj) => {
           return (
             <List.Item
+              className="category"
               as="a"
               key={categoryObj.id}
               onClick={(event) => {

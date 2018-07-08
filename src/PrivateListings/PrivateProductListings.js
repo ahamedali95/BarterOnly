@@ -50,11 +50,12 @@ class PrivateProductListings extends Component {
               productListingObj.exchange_item
             }
           </Table.Cell>
-          <Table.Cell>{
-            productListingObj.isSold ?
-              <img src="../assets/images/sold-out-png-19.png"/>
-              :
-              null
+          <Table.Cell>
+            {
+              productListingObj.isSold ?
+                <img style={{width: "10px !important", height: "auto !important"}} src="../assets/images/sold-out-png-19.png" alt="product image"/>
+                :
+                null
             }
           </Table.Cell>
           <Table.Cell>{productListingObj.created_at}</Table.Cell>

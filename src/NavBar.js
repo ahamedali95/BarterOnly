@@ -19,7 +19,7 @@ class NavBar extends Component {
 
   render() {
     return (
-      <Menu>
+      <Menu id="menu">
         {
           !localStorage.getItem("token") ?
             <React.Fragment>

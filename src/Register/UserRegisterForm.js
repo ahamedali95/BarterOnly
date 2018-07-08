@@ -41,7 +41,7 @@ class UserRegisterForm extends Component {
       //will persist the token until it has been removed.
       //Check whether the json that is sent to the client has errors,
       //if it does, then we know the backend validations failed. Display the
-      //error messages. Otherwise, redirect to all prouct listings page. 
+      //error messages. Otherwise, redirect to all prouct listings page.
       if(!!data.errors) {
         this.setState({
           isError: true,
@@ -89,8 +89,9 @@ class UserRegisterForm extends Component {
 
   loadForm = () => {
     return (
-      <Form onSubmit={this.handleSubmit}>
+      <Form id="register-form" onSubmit={this.handleSubmit}>
         <Form.Field
+          className="form-input"
           required
           label="First Name"
           type="text"
@@ -101,6 +102,7 @@ class UserRegisterForm extends Component {
           onChange={this.handleChange}
         />
         <Form.Field
+          className="form-input"
           required
           label="Last Name"
           type="text"
@@ -111,6 +113,7 @@ class UserRegisterForm extends Component {
           onChange={this.handleChange}
         />
         <Form.Select
+          className="form-input"
           required
           label="Location"
           name="location"
@@ -120,6 +123,7 @@ class UserRegisterForm extends Component {
           onChange={(event, { name, value }) => this.handleChange(event, { name, value })}
         />
         <Form.Field
+          className="form-input"
           required
           label="Username"
           name="username"
@@ -129,6 +133,7 @@ class UserRegisterForm extends Component {
           onChange={this.handleChange}
         />
         <Form.Field
+          className="form-input"
           required
           label="Password"
           type="password"
@@ -139,6 +144,7 @@ class UserRegisterForm extends Component {
           onChange={this.handleChange}
         />
         <Form.Field
+          className="form-input"
           required
           label="Password Confirmation"
           type="password"
