@@ -5,10 +5,15 @@ import SearchField from "./SearchField.js";
 import SortSelection from "./SortSelection.js";
 import adapter from "../adapter.js";
 import { connect } from "react-redux";
-import { setProductListingsAndCategoriesAndUsers } from "../actions/index.js";
+import { removeCurrentProductListing, setProductListingsAndCategoriesAndUsers } from "../actions/index.js";
+import LineGraph from "./LineGraph.js";
 
 class ProductListingContainer extends Component {
   componentDidMount() {
+    //This is important because if the comes back to this page from viewing
+    //the product details, we would like to reset the currently seelcted
+    //product listing to null so that the details page won't render;
+    this.props.removeCurrentProductListing();
     Promise.all([
       adapter.get("categories"),
       adapter.get("product_listings"),
@@ -16,6 +21,7 @@ class ProductListingContainer extends Component {
     ])
     .then(([response1, response2, response3]) => Promise.all([response1.json(), response2.json(), response3.json()]))
     .then(([categories, productListings, users]) => {
+
       //Filter the product listings so that we can products which are not sold.
       // productListings = productListings.filter((productListingObj) => {
       //   return !productListingObj.isSold
@@ -70,6 +76,7 @@ class ProductListingContainer extends Component {
             null
         }
         <ProductListingsCollection/>
+        <LineGraph/>
       </div>
     );
   }
@@ -85,6 +92,9 @@ function mapDispatchToProps(dispatch) {
   return {
     setProductListingsAndCategoriesAndUsers: (product_listings, categories, users) => {
       dispatch(setProductListingsAndCategoriesAndUsers(product_listings, categories, users));
+    },
+    removeCurrentProductListing: () => {
+      dispatch(removeCurrentProductListing());
     }
     // setCategoryAndResetSearchTermAndSortOption: (categoryId) => {
     //   dispatch(setCategoryAndResetSearchTermAndSortOption(categoryId));

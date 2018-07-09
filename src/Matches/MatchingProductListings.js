@@ -77,14 +77,15 @@ class MatchingProductListings extends Component {
           <Table.Cell>
             <img src={productListingObj.image}/>
             <p><a onClick={() => this.props.selectProductListing(productListingObj)}>{productListingObj.name}</a></p>
-            <p>{productListingObj.description}</p>
+            <p className="private-listing-details">{productListingObj.description}</p>
           </Table.Cell>
-          <Table.Cell>${productListingObj.value}</Table.Cell>
-          <Table.Cell>{
-            productListingObj.exchange_item === null ?
-              "Cash"
-              :
-              productListingObj.exchange_item
+          <Table.Cell className="private-listing-details">${productListingObj.value}</Table.Cell>
+          <Table.Cell className="private-listing-details">
+            {
+              productListingObj.exchange_item === null ?
+                "Cash"
+                :
+                productListingObj.exchange_item
             }
           </Table.Cell>
 
@@ -105,10 +106,10 @@ class MatchingProductListings extends Component {
           <Table>
             <Table.Header>
               <Table.Row>
-                <Table.HeaderCell>Content</Table.HeaderCell>
-                <Table.HeaderCell>Value</Table.HeaderCell>
-                <Table.HeaderCell>Exchange Item</Table.HeaderCell>
-                <Table.HeaderCell>Date</Table.HeaderCell>
+                <Table.HeaderCell className="product-listings-table-header">Content</Table.HeaderCell>
+                <Table.HeaderCell className="product-listings-table-header">Value</Table.HeaderCell>
+                <Table.HeaderCell className="product-listings-table-header">Exchange Item</Table.HeaderCell>
+                <Table.HeaderCell className="product-listings-table-header">Date</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
 
