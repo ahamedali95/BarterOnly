@@ -159,11 +159,7 @@ body {
   font-family: Arimo;
 }
 
-#private-image {
-  display: block;
-  width: 100%;
-  height: auto;
-}
+
 
 .form-select {
   width: 300px;
@@ -195,7 +191,16 @@ body {
   color: red !important;
 }
 
-#private-image {
-  width: 10px !important;
-   height: auto;
+.product-listings-table-header {
+  background-color: #453D3C !important;
+  color: white !important;
+  font-family: Arimo !important;
+  font-weight: bold !important;
+  font-size: 20px;
+}
+
+.private-listing-details {
+  font-size: 20px !important;
+  font-style: italic;
+
 }

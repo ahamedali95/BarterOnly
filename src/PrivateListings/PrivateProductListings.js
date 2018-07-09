@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { Table, Icon } from "semantic-ui-react";
 import adapter from "../adapter.js";
-import { updateProductListings, removeCurrentProductListing } from "../actions/index.js";
+import { updateProductListings, removeCurrentProductListing, selectProductListing } from "../actions/index.js";
 import { connect } from "react-redux";
+import Moment from 'react-moment';
+import ProductListingDetails from "../ProductListings/ProductListingDetails.js";
 
 //This component was once a presentation component for the purpose of listing
 //an user's own product listings. Now, it is a class component since I need to
@@ -16,7 +18,7 @@ class PrivateProductListings extends Component {
 
   //This is very important because if the user decided to switch to this page
   //after viewing the product details for a particular product and then switch it
-  //back to the all product listings page, then we want to show all the
+  //back to the all product listings age, then we want to show all the
   //products, not the previous product details. We need to this on all pages, except
   //all product listings page
   componentDidMount() {
@@ -39,26 +41,27 @@ class PrivateProductListings extends Component {
         <Table.Row>
           <Table.Cell>
             <img src={productListingObj.image}/>
-            <p>{productListingObj.name}</p>
-            <p>{productListingObj.description}</p>
+            <a onClick={() => this.props.selectProductListing(productListingObj)}><p className="private-listing-details">{productListingObj.name}</p></a>
+            <p className="private-listing-details">{productListingObj.description}</p>
           </Table.Cell>
-          <Table.Cell>${productListingObj.value}</Table.Cell>
-          <Table.Cell>{
-            productListingObj.exchange_item === null ?
-              "Cash"
-              :
-              productListingObj.exchange_item
+          <Table.Cell className="private-listing-details">${productListingObj.value}</Table.Cell>
+          <Table.Cell className="private-listing-details">
+            {
+              productListingObj.exchange_item === null ?
+                "Cash"
+                :
+                productListingObj.exchange_item
             }
           </Table.Cell>
-          <Table.Cell id="private-image">
+          <Table.Cell className="private-listing-details"><Moment format="DD-MMM-YYYY">{productListingObj.created_at}</Moment></Table.Cell>
+          <Table.Cell>
             {
               productListingObj.isSold ?
-                <img id="private-image" src="../assets/images/sold-out-png-19.png" alt="product image"/>
+                <img src="../assets/images/sold-out-png-19.png" alt="product image"/>
                 :
                 null
             }
           </Table.Cell>
-          <Table.Cell>{productListingObj.created_at}</Table.Cell>
           <Table.Cell>
             <Icon
               name="delete"
@@ -90,25 +93,31 @@ class PrivateProductListings extends Component {
   }
   //Filter the product listings for a particular user.
 
-
   render() {
     return (
-      <Table style={{height:"500px",width:"400px","overflow-x":"scroll"}}>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell>Content</Table.HeaderCell>
-            <Table.HeaderCell>Value</Table.HeaderCell>
-            <Table.HeaderCell>Exchange Item</Table.HeaderCell>
-            <Table.HeaderCell>Date</Table.HeaderCell>
-            <Table.HeaderCell></Table.HeaderCell>
-            <Table.HeaderCell>Del</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
+      <div>
+      {
+        this.props.currentProductListing === null ?
+          <Table>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell className="product-listings-table-header">Content</Table.HeaderCell>
+                <Table.HeaderCell className="product-listings-table-header">Value</Table.HeaderCell>
+                <Table.HeaderCell className="product-listings-table-header">Exchange Item</Table.HeaderCell>
+                <Table.HeaderCell className="product-listings-table-header">Date</Table.HeaderCell>
+                <Table.HeaderCell className="product-listings-table-header"></Table.HeaderCell>
+                <Table.HeaderCell className="product-listings-table-header">Del</Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
 
-        <Table.Body>
-          {this.productListingsRows()}
-        </Table.Body>
-      </Table>
+            <Table.Body>
+              {this.productListingsRows()}
+            </Table.Body>
+          </Table>
+          :
+          <ProductListingDetails></ProductListingDetails>
+      }
+      </div>
     );
   }
 }
@@ -116,7 +125,8 @@ class PrivateProductListings extends Component {
 const mapStateToProps = (state) => {
   return {
     userId: state.userId,
-    productListings: state.productListings
+    productListings: state.productListings,
+    currentProductListing: state.currentProductListing
   };
 }
 
@@ -127,6 +137,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     removeCurrentProductListing: () => {
       dispatch(removeCurrentProductListing());
+    },
+    selectProductListing: (productListing) => {
+      dispatch(selectProductListing(productListing))
     }
   };
 }

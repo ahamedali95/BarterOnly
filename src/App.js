@@ -41,7 +41,7 @@ class App extends Component {
           <div>
             <div className="App">
             <header className="App-header">
-              <a href="http://localhost:3000/product-listings"><img id="banner" src="../assets/images/m (2).png" alt="banner"/></a>
+              <a href="http://localhost:3000/product-listings"><img id="banner" src="../assets/images/banner.png" alt="banner"/></a>
             </header>
             </div>
             <NavBar className="navbar" handleClick={this.handleClick}/>
@@ -71,10 +71,8 @@ class App extends Component {
             <Route exact path="/my-product-listings" component={PrivateProductListings}></Route>
             <Route exact path="/matching-listings" component={MatchingProductListings}></Route>
             */}
-            <div className="App">
-            <header className="App-header">
-              <a href="http://localhost:3000/product-listings"><img id="banner" src="../assets/images/m (2).png" alt="banner"/></a>
-            </header>
+            <div>
+              <a href="http://localhost:3000/product-listings"><img src="../assets/images/footer.png" alt="footer"/></a>
             </div>
           </div>
         </Router>

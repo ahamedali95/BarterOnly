@@ -5,23 +5,24 @@ import SearchField from "./SearchField.js";
 import SortSelection from "./SortSelection.js";
 import adapter from "../adapter.js";
 import { connect } from "react-redux";
-import { setProductListingsAndCategories } from "../actions/index.js";
+import { setProductListingsAndCategoriesAndUsers } from "../actions/index.js";
 
 class ProductListingContainer extends Component {
   componentDidMount() {
     Promise.all([
       adapter.get("categories"),
-      adapter.get("product_listings")
+      adapter.get("product_listings"),
+      adapter.get("users")
     ])
-    .then(([response1, response2]) => Promise.all([response1.json(), response2.json()]))
-    .then(([categories, productListings]) => {
+    .then(([response1, response2, response3]) => Promise.all([response1.json(), response2.json(), response3.json()]))
+    .then(([categories, productListings, users]) => {
       //Filter the product listings so that we can products which are not sold.
       // productListings = productListings.filter((productListingObj) => {
       //   return !productListingObj.isSold
       // });
       //We are doing this in ProductListingsCollection.js because if I do this here,
       //then myListings will show only products which are sold, not ALL products.
-      this.props.setProductListingsAndCategories(productListings, categories);
+      this.props.setProductListingsAndCategoriesAndUsers(productListings, categories, users);
     });
   }
 
@@ -82,8 +83,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setProductListingsAndCategories: (product_listings, categories) => {
-      dispatch(setProductListingsAndCategories(product_listings, categories));
+    setProductListingsAndCategoriesAndUsers: (product_listings, categories, users) => {
+      dispatch(setProductListingsAndCategoriesAndUsers(product_listings, categories, users));
     }
     // setCategoryAndResetSearchTermAndSortOption: (categoryId) => {
     //   dispatch(setCategoryAndResetSearchTermAndSortOption(categoryId));

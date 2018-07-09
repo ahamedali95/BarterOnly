@@ -1,9 +1,10 @@
-const setProductListingsAndCategories = (productListings, categories) => {
+const setProductListingsAndCategoriesAndUsers = (productListings, categories, users) => {
   return {
-    type: "SET_PRODUCT_LISTINGS_AND_CATEGORIES",
+    type: "SET_PRODUCT_LISTINGS_AND_CATEGORIES_AND_USERS",
     payload: {
     productListings: productListings,
-    categories: categories
+    categories: categories,
+    users: users
   }};
 }
 
@@ -57,7 +58,7 @@ const setUserId = (userId) => {
 }
 
 module.exports = {
-  setProductListingsAndCategories,
+  setProductListingsAndCategoriesAndUsers,
   setCategoryAndResetSearchTermAndSortOption,
   updateSearchTerm,
   updateSortByOption,

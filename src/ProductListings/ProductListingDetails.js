@@ -93,6 +93,14 @@ class ProductListingDetails extends Component {
     }
   }
 
+  getUserName = () => {
+    const username = this.props.users.find((userObj) => {
+      return userObj.id === this.props.currentProductListing.user_id;
+    }).username;
+    debugger
+    return username;
+  }
+
   //Here, we need to conditional rendering since we should not allow a user to
   //purchase their own product.
   //If there exists a token and user id and the user id does not match the product
@@ -118,6 +126,7 @@ class ProductListingDetails extends Component {
           <p>Delivery: {this.props.currentProductListing.delivery_method}</p>
           <p>Condition: <strong>{this.props.currentProductListing.condition}</strong></p>
           <p>Value: ${this.props.currentProductListing.value}</p>
+          <p>Sold by: {this.getUserName()}</p>
         </div>
         <div id="wanted">
           <h2>Wanted</h2>
@@ -126,6 +135,12 @@ class ProductListingDetails extends Component {
               "Cash"
               :
               this.props.currentProductListing.exchange_item
+          }
+          {
+            this.props.currentProductListing === null ?
+              <p> ***Log in to buy item*** </p>
+              :
+              null
           }
           {
             !!adapter.getToken() && !!adapter.getUserId() && Number(adapter.getUserId()) !== this.props.currentProductListing.user_id ?
@@ -165,7 +180,8 @@ class ProductListingDetails extends Component {
 const mapStateToProps = (state) => {
   return {
     userId: state.userId,
-    currentProductListing: state.currentProductListing
+    currentProductListing: state.currentProductListing,
+    users: state.users
   };
 }
 
