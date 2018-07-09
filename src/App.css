@@ -2,24 +2,14 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
 .App-header {
   background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+  height: 200px;
 }
 
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
+#banner {
+  width: 1430px;
+  height: 200px;
 }
 
 #menu {
@@ -32,7 +22,7 @@
 
 #categories {
   float: left;
-  margin-top: 70px;
+  margin-top: 80px;
 }
 
 .category {
@@ -60,38 +50,28 @@
   width: 100px;
 }
 
+body {
+  background-color: #D2691E;
+}
+
 #heading-for-search-sort-by {
   color: white;
 }
 
 #wrapper-for-search-sort-by {
-  width: 1300px;
+  width: 1250px;
   border: 1px solid black;
   overflow: hidden;
   padding: 20px;
   background-color: #453D3C;
   border-radius: 7px;
   display: inline-block;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
-body {
-padding: 0;
-margin: 0;
-}
-
-#login-form {
-  display: inline-block;
-  position: absolute;
-  margin: 150px;
-  width: 100%
-}
-
-#register-form {
-  display: inline-block;
-  position: absolute;
-  margin: 150px;
-  width: 100%
+.form {
+  margin: 20px auto;
+  width:250px;
 }
 
 .form-input {
@@ -124,30 +104,6 @@ margin: 0;
   float: left;
   margin: 100px;
 }
-
-/* #product-details-description-heading {
-  font-size: 50px;
-  float: left;
-} */
-
-/* .details {
-  border: 1px solid black;
-  margin-top: 700px;
-}
-
-#details-description {
-  font-style: italic;
-  font-size: 50px;
-  float: left;
-  position: relative;
-}
-
-#details-location {
-  font-style: italic;
-  font-size: 50px;
-  float: left;
-  position: relative;
-} */
 
 #details-description {
   font-style: italic;
@@ -207,4 +163,39 @@ margin: 0;
   display: block;
   width: 100%;
   height: auto;
+}
+
+.form-select {
+  width: 300px;
+}
+
+#uploaded-image {
+  width: 250px;
+  height: auto;
+  border-radius: 7px;
+  margin: 20px;
+}
+
+#image-upload-area {
+  border-color: green !important;
+  float: right !important;
+  width: 200px !important;
+  height: 100px !important;
+  font-size: 20px;
+  font-family: Arimo;
+  font-style: italic;
+  border-bottom-width: 5px !important;
+}
+
+.error-messages {
+  width: 500px;
+  float: center;
+  font-family: Arimo;
+  font-weight: bold;
+  color: red !important;
+}
+
+#private-image {
+  width: 10px !important;
+   height: auto;
 }

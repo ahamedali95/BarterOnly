@@ -101,11 +101,11 @@ const ProductListingsCollection = (props) => {
   //we must show its details. Otherwise, show the entire collection of
   //product listings.
   return (
-    <div className="ui grid">
+    <div className="ui four doubling stackable cards">
     {
       props.currentProductListing === null ?
         p.map((productListingObj) => {
-          return <ProductListing className="four wide column" key={productListingObj.id} productListing={productListingObj}></ProductListing>
+          return <ProductListing className="column" key={productListingObj.id} productListing={productListingObj}></ProductListing>
         })
         :
         <ProductListingDetails key={props.currentProductListing.id}></ProductListingDetails>

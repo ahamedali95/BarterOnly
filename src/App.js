@@ -9,6 +9,7 @@ import ProductListingContainer from "./ProductListings/ProductListingContainer.j
 import ProductListingForm from "./NewListing/ProductListingForm.js";
 import PrivateProductListings from "./PrivateListings/PrivateProductListings.js";
 import MatchingProductListings from "./Matches/MatchingProductListings.js";
+import Footer from "./Footer.js"
 import NavBar from "./NavBar.js";
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 
@@ -40,7 +41,7 @@ class App extends Component {
           <div>
             <div className="App">
             <header className="App-header">
-              <img src="./public/assests/images/banner.png" alt="banner"/>
+              <a href="http://localhost:3000/product-listings"><img id="banner" src="../assets/images/m (2).png" alt="banner"/></a>
             </header>
             </div>
             <NavBar className="navbar" handleClick={this.handleClick}/>
@@ -70,6 +71,7 @@ class App extends Component {
             <Route exact path="/my-product-listings" component={PrivateProductListings}></Route>
             <Route exact path="/matching-listings" component={MatchingProductListings}></Route>
             */}
+            <Footer></Footer>
           </div>
         </Router>
       </div>

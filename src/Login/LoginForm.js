@@ -53,6 +53,7 @@ class LoginForm extends Component {
   loadErrors = () => {
     return (
       <Message
+        className="error-messages"
         error
         header='There was some errors with your submission'
         list={this.state.errorMessages}
@@ -62,30 +63,33 @@ class LoginForm extends Component {
 
   loadForm = () => {
     return (
-      <Form id="login-form" onSubmit={this.handleSubmit} id="login-form">
-        <Form.Field
-          className="form-input"
-          required
-          label="Username"
-          name="username"
-          control={Input}
-          placeholder="Username"
-          value={this.state.username}
-          onChange={this.handleChange}
-        />
-        <Form.Field
-          className="form-input"
-          required
-          label="Password"
-          type="password"
-          name="password"
-          control={Input}
-          placeholder="Password"
-          value={this.state.password}
-          onChange={this.handleChange}
-        />
-        <Button>Login</Button>
-      </Form>
+      <div className="form">
+        <h1 className="form-heading">Login</h1>
+        <Form onSubmit={this.handleSubmit} id="login-form">
+          <Form.Field
+            className="form-input"
+            required
+            label="Username"
+            name="username"
+            control={Input}
+            placeholder="Username"
+            value={this.state.username}
+            onChange={this.handleChange}
+          />
+          <Form.Field
+            className="form-input"
+            required
+            label="Password"
+            type="password"
+            name="password"
+            control={Input}
+            placeholder="Password"
+            value={this.state.password}
+            onChange={this.handleChange}
+          />
+          <Button>Login</Button>
+        </Form>
+      </div>
     );
   }
 

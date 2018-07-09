@@ -80,6 +80,7 @@ class UserRegisterForm extends Component {
   loadErrors = () => {
     return (
       <Message
+        className="error-messages"
         error
         header='There was some errors with your submission'
         list={this.state.errorMessages}
@@ -89,73 +90,76 @@ class UserRegisterForm extends Component {
 
   loadForm = () => {
     return (
-      <Form id="register-form" onSubmit={this.handleSubmit}>
-        <Form.Field
-          className="form-input"
-          required
-          label="First Name"
-          type="text"
-          name="firstName"
-          control={Input}
-          placeholder="First Name"
-          value={this.state.firstName}
-          onChange={this.handleChange}
-        />
-        <Form.Field
-          className="form-input"
-          required
-          label="Last Name"
-          type="text"
-          name="lastName"
-          control={Input}
-          placeholder="Last Name"
-          value={this.state.lastName}
-          onChange={this.handleChange}
-        />
-        <Form.Select
-          className="form-input"
-          required
-          label="Location"
-          name="location"
-          placeholder="Location"
-          options={this.locationOptions()}
-          value={this.state.location}
-          onChange={(event, { name, value }) => this.handleChange(event, { name, value })}
-        />
-        <Form.Field
-          className="form-input"
-          required
-          label="Username"
-          name="username"
-          control={Input}
-          placeholder="Username"
-          value={this.state.username}
-          onChange={this.handleChange}
-        />
-        <Form.Field
-          className="form-input"
-          required
-          label="Password"
-          type="password"
-          name="password"
-          control={Input}
-          placeholder="Password"
-          value={this.state.password}
-          onChange={this.handleChange}
-        />
-        <Form.Field
-          className="form-input"
-          required
-          label="Password Confirmation"
-          type="password"
-          name="passwordConfirmation"
-          control={Input}
-          placeholder="Password Confirmation"
-          value={this.state.passwordConfirmation}
-          onChange={this.handleChange}
-        />
-        <Button>Sign Up</Button>
-      </Form>
+      <div className="form">
+        <h1 className="form-heading">Register</h1>
+        <Form id="register-form" onSubmit={this.handleSubmit}>
+          <Form.Field
+            className="form-input"
+            required
+            label="First Name"
+            type="text"
+            name="firstName"
+            control={Input}
+            placeholder="First Name"
+            value={this.state.firstName}
+            onChange={this.handleChange}
+          />
+          <Form.Field
+            className="form-input"
+            required
+            label="Last Name"
+            type="text"
+            name="lastName"
+            control={Input}
+            placeholder="Last Name"
+            value={this.state.lastName}
+            onChange={this.handleChange}
+          />
+          <Form.Select
+            className="form-input"
+            required
+            label="Location"
+            name="location"
+            placeholder="Location"
+            options={this.locationOptions()}
+            value={this.state.location}
+            onChange={(event, { name, value }) => this.handleChange(event, { name, value })}
+          />
+          <Form.Field
+            className="form-input"
+            required
+            label="Username"
+            name="username"
+            control={Input}
+            placeholder="Username"
+            value={this.state.username}
+            onChange={this.handleChange}
+          />
+          <Form.Field
+            className="form-input"
+            required
+            label="Password"
+            type="password"
+            name="password"
+            control={Input}
+            placeholder="Password"
+            value={this.state.password}
+            onChange={this.handleChange}
+          />
+          <Form.Field
+            className="form-input"
+            required
+            label="Password Confirmation"
+            type="password"
+            name="passwordConfirmation"
+            control={Input}
+            placeholder="Password Confirmation"
+            value={this.state.passwordConfirmation}
+            onChange={this.handleChange}
+          />
+          <Button>Sign Up</Button>
+        </Form>
+      </div>
     );
   }
 

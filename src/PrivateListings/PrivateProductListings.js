@@ -50,10 +50,10 @@ class PrivateProductListings extends Component {
               productListingObj.exchange_item
             }
           </Table.Cell>
-          <Table.Cell>
+          <Table.Cell id="private-image">
             {
               productListingObj.isSold ?
-                <img style={{width: "10px !important", height: "auto !important"}} src="../assets/images/sold-out-png-19.png" alt="product image"/>
+                <img id="private-image" src="../assets/images/sold-out-png-19.png" alt="product image"/>
                 :
                 null
             }
@@ -93,7 +93,7 @@ class PrivateProductListings extends Component {
 
   render() {
     return (
-      <Table>
+      <Table style={{height:"500px",width:"400px","overflow-x":"scroll"}}>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Content</Table.HeaderCell>
