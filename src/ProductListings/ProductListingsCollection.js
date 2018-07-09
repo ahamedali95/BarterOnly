@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ProductListing from "./ProductListing.js";
 import ProductListingDetails from "./ProductListingDetails.js";
 import { connect } from "react-redux";
+import LoaderForCollection from "./LoaderForCollection.js";
 
 const ProductListingsCollection = (props) => {
   console.log("INSIDE ProductListingsCollection", props)
@@ -102,7 +103,13 @@ const ProductListingsCollection = (props) => {
   return (
     <div className="ui four doubling stackable cards">
     {
-      props.currentProductListing === null ?
+      props.productListings.length === 0 ?
+        <LoaderForCollection id="loader"></LoaderForCollection>
+        :
+        null
+    }
+    {
+       props.currentProductListing === null ?
         p.map((productListingObj) => {
           return <ProductListing className="column" key={productListingObj.id} productListing={productListingObj}></ProductListing>
         })
