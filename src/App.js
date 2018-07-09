@@ -71,7 +71,11 @@ class App extends Component {
             <Route exact path="/my-product-listings" component={PrivateProductListings}></Route>
             <Route exact path="/matching-listings" component={MatchingProductListings}></Route>
             */}
-            <Footer></Footer>
+            <div className="App">
+            <header className="App-header">
+              <a href="http://localhost:3000/product-listings"><img id="banner" src="../assets/images/m (2).png" alt="banner"/></a>
+            </header>
+            </div>
           </div>
         </Router>
       </div>

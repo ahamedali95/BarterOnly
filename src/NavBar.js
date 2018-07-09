@@ -20,6 +20,15 @@ class NavBar extends Component {
   render() {
     return (
       <Menu id="menu">
+        <Menu.Item
+          as={NavLink}
+          to="/product-listings"
+          name="productListings"
+          active={this.state.menuItem === "productListings"}
+          onClick={this.handleClick}
+        >
+          Product Listings
+        </Menu.Item>
         {
           !localStorage.getItem("token") ?
             <React.Fragment>
@@ -45,8 +54,6 @@ class NavBar extends Component {
             </React.Fragment>
             :
             <React.Fragment>
-              <button onClick={this.props.handleClick}>Log out</button>
-
               <Menu.Item
                 as={NavLink}
                 to="/new-product-listing"
@@ -76,19 +83,11 @@ class NavBar extends Component {
               >
                 Matching Listings
               </Menu.Item>
+
+              <button onClick={this.props.handleClick}>Log out</button>
             </React.Fragment>
+
         }
-
-          <Menu.Item
-            as={NavLink}
-            to="/product-listings"
-            name="productListings"
-            active={this.state.menuItem === "productListings"}
-            onClick={this.handleClick}
-          >
-            Product Listings
-          </Menu.Item>
-
       </Menu>
     );
   }
