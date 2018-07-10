@@ -146,18 +146,19 @@ body {
   font-family: Arimo;
 }
 
-#wanted  {
+/* #wanted  {
   font-size: 20px;
   border: 1px solid black;
   overflow: hidden;
   width: 650px;
+  height: 100px;
   float: left;
   border-color: green;
   border-width: 2px;
   border-bottom-width: 5px;
   border-right-width: 5px;
   font-family: Arimo;
-}
+} */
 
 .form-select {
   width: 300px;

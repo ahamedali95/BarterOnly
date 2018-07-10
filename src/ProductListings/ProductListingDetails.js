@@ -16,6 +16,12 @@ class ProductListingDetails extends Component {
     }
   }
 
+  componentDidMount() {
+    //This will mimic the RAILS show page where rails route for show controller action
+    //will look something like this: products/4. React Router achieves the same thing.
+    this.props.history.push(`product-listings/${this.props.currentProductListing.id}`);
+  }
+
   // handleRating = (event, { name, rating }) => {
   //   this.setState({
   //     [name]: rating
@@ -26,11 +32,16 @@ class ProductListingDetails extends Component {
   //an item from the product listing view details page and goes back to the
   //all product listings page, then we need to update the product listings with
   //new new information since an item is purchased by the user.
-  handleRedirect = () => {
-    this.props.removeCurrentProductListing()
-    //browserHistory.push("/product-listings");
-
+  removeCurrentProductListing = () => {
+    this.props.removeCurrentProductListing();
+    //The goBack method will push the previous url to the browser.
+    this.props.history.goBack();
   }
+
+  // handleRedirect = () => {
+  //   console.log("inside productListingdetails", this.props)
+  //   this.props.history.push("/edit-product-listing")
+  // }
 
   handleChange = (event, { name, value }) => {
     if(event.target.value === undefined) {
@@ -74,7 +85,8 @@ class ProductListingDetails extends Component {
   getProducts = () => {
     adapter.get("product_listings")
     .then(response => response.json())
-    .then(data => this.props.updateProductListings(data));
+    .then(data => this.props.updateProductListings(data))
+    .then(() => this.removeCurrentProductListing());
   }
 
   purchaseOptions = () => {
@@ -97,7 +109,7 @@ class ProductListingDetails extends Component {
     const username = this.props.users.find((userObj) => {
       return userObj.id === this.props.currentProductListing.user_id;
     }).username;
-    debugger
+
     return username;
   }
 
@@ -115,7 +127,13 @@ class ProductListingDetails extends Component {
   render() {
     return (
       <div id="wrapper-for-product-details">
-        <Button onClick={this.handleRedirect}>Back to Product Listings</Button>
+        <Button onClick={this.removeCurrentProductListing}>Back to Product Listings</Button>
+        {
+          this.props.currentProductListing.user_id === Number(adapter.getUserId()) ?
+            <Button onClick={this.handleRedirect}>Edit Product Listing</Button>
+            :
+            null
+        }
         <h1 id="product-details-name">{this.props.currentProductListing.name}</h1>
         {/*<Rating icon='star' defaultRating={this.state.rating} maxRating={5} name="rating" onRate={(event, { name, rating }) => this.handleRating(event, { name, rating })}/>*/}
         <img id="product-details-image" src={this.props.currentProductListing.image}/>

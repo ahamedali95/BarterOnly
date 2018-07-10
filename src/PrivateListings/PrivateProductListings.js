@@ -5,6 +5,7 @@ import { updateProductListings, removeCurrentProductListing, selectProductListin
 import { connect } from "react-redux";
 import Moment from 'react-moment';
 import ProductListingDetails from "../ProductListings/ProductListingDetails.js";
+import { BrowserRouter, Route } from "react-router-dom";
 
 //This component was once a presentation component for the purpose of listing
 //an user's own product listings. Now, it is a class component since I need to
@@ -115,7 +116,11 @@ class PrivateProductListings extends Component {
             </Table.Body>
           </Table>
           :
-          <ProductListingDetails></ProductListingDetails>
+          <BrowserRouter>
+            <Route
+              render={ props => <ProductListingDetails {...props} />}
+            />
+          </BrowserRouter>
       }
       </div>
     );

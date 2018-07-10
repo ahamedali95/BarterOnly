@@ -3,6 +3,7 @@ import ProductListing from "./ProductListing.js";
 import ProductListingDetails from "./ProductListingDetails.js";
 import { connect } from "react-redux";
 import LoaderForCollection from "./LoaderForCollection.js";
+import { BrowserRouter, Route } from 'react-router-dom'
 
 const ProductListingsCollection = (props) => {
   console.log("INSIDE ProductListingsCollection", props)
@@ -102,19 +103,24 @@ const ProductListingsCollection = (props) => {
   //product listings.
   return (
     <div className="ui four doubling stackable cards">
-    {
+    {/*{
       props.productListings.length === 0 ?
         <LoaderForCollection/>
         :
         null
-    }
+    }*/
+  }
     {
        props.currentProductListing === null ?
         p.map((productListingObj) => {
           return <ProductListing className="column" key={productListingObj.id} productListing={productListingObj}></ProductListing>
         })
         :
-        <ProductListingDetails key={props.currentProductListing.id}></ProductListingDetails>
+        <BrowserRouter>
+          <Route
+            render={ props => <ProductListingDetails {...props} />}
+          />
+        </BrowserRouter>
     }
     </div>
   );

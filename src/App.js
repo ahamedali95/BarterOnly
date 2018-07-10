@@ -9,6 +9,7 @@ import ProductListingContainer from "./ProductListings/ProductListingContainer.j
 import ProductListingForm from "./NewListing/ProductListingForm.js";
 import PrivateProductListings from "./PrivateListings/PrivateProductListings.js";
 import MatchingProductListings from "./Matches/MatchingProductListings.js";
+import ModifyProductListing from "./ModifyListing/ModifyProductListing.js";
 import Footer from "./Footer.js"
 import NavBar from "./NavBar.js";
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
@@ -40,9 +41,9 @@ class App extends Component {
         <Router>
           <div>
             <div className="App">
-            <header className="App-header">
-              <a href="http://localhost:3000/product-listings"><img id="banner" src="../assets/images/banner.png" alt="banner"/></a>
-            </header>
+              <header className="App-header">
+                <a href="http://localhost:3000/product-listings"><img id="banner" src="../assets/images/banner.png" alt="banner"/></a>
+              </header>
             </div>
             <NavBar className="navbar" handleClick={this.handleClick}/>
             {
@@ -65,7 +66,7 @@ class App extends Component {
                 <Redirect to={{pathname: "/login"}} push/>
             }
             <Route exact path="/product-listings" component={ProductListingContainer}></Route>
-
+            <Route exact path="/edit-product-listing" component={ModifyProductListing}></Route>
             {/*
               <Route exact path="/new-product-listing" component={ProductListingForm}></Route>
             <Route exact path="/my-product-listings" component={PrivateProductListings}></Route>
