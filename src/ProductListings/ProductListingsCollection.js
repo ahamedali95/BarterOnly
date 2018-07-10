@@ -104,7 +104,7 @@ const ProductListingsCollection = (props) => {
     <div className="ui four doubling stackable cards">
     {
       props.productListings.length === 0 ?
-        <LoaderForCollection id="loader"></LoaderForCollection>
+        <LoaderForCollection/>
         :
         null
     }

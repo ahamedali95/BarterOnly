@@ -202,5 +202,13 @@ body {
 .private-listing-details {
   font-size: 20px !important;
   font-style: italic;
+}
 
+.loader {
+  margin: 0 auto !important;
+  width: 100% !important;
+  color: red !important;
+  font-family: Arimo !important;
+  font-size: weight;
+  font-size: 20px
 }

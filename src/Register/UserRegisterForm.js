@@ -4,6 +4,9 @@ import { setUserId } from "../actions/index.js";
 import { connect } from "react-redux";
 import { Form, Input, Button } from "semantic-ui-react";
 import { Message } from "semantic-ui-react";
+import Dropzone from "react-dropzone";
+import request from "superagent";
+import { CLOUDINARY_UPLOAD_PRESET, CLOUDINARY_UPLOAD_URL }  from "../keys.js";
 
 class UserRegisterForm extends Component {
   constructor(props) {
@@ -125,6 +128,14 @@ class UserRegisterForm extends Component {
             value={this.state.location}
             onChange={(event, { name, value }) => this.handleChange(event, { name, value })}
           />
+          <Dropzone
+            id="image-upload-area"
+            multiple={false}
+            accept="image/*"
+            onDrop={this.onImageDrop}
+          >
+            <p>Drop an image or click to select a file to upload.</p>
+          </Dropzone>
           <Form.Field
             className="form-input"
             required
