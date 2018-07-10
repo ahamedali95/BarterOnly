@@ -16,6 +16,7 @@ class UserRegisterForm extends Component {
       firstName: "",
       lastName: "",
       location: null,
+      image: "",
       username: "",
       password: "",
       passwordConfirmation: "",
@@ -31,6 +32,7 @@ class UserRegisterForm extends Component {
       first_name: this.state.firstName,
       last_name: this.state.lastName,
       location: this.state.location,
+      image: this.state.image,
       username: this.state.username,
       password: this.state.password,
       password_confirmation: this.state.passwordConfirmation
@@ -91,6 +93,31 @@ class UserRegisterForm extends Component {
     );
   }
 
+  onImageDrop = (files) => {
+    this.setState({
+      uploadedFile: files[0]
+    }, () => this.handleImageUpload(files[0]));
+  }
+
+  //Uploading to the image to the API.
+  handleImageUpload = (file) => {
+    let upload = request.post(CLOUDINARY_UPLOAD_URL)
+                        .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
+                        .field('file', file);
+
+    upload.end((err, response) => {
+      if(err) {
+        console.error(err);
+      }
+
+      if(response.body.secure_url !== '') {
+        this.setState({
+          image: response.body.secure_url
+        }, () => console.log("INSIDE UPLOAD PIC", this.state));
+      }
+    });
+  }
+
   loadForm = () => {
     return (
       <div className="form">
@@ -129,13 +156,19 @@ class UserRegisterForm extends Component {
             onChange={(event, { name, value }) => this.handleChange(event, { name, value })}
           />
           <Dropzone
-            id="image-upload-area"
+            class="image-upload-area"
             multiple={false}
             accept="image/*"
             onDrop={this.onImageDrop}
           >
             <p>Drop an image or click to select a file to upload.</p>
           </Dropzone>
+          {
+            this.state.image.length !== 0 ?
+              <img class="uploaded-image" src={this.state.image}/>
+              :
+              null
+          }
           <Form.Field
             className="form-input"
             required

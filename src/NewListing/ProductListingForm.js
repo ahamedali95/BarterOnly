@@ -231,7 +231,7 @@ class ProductListingForm extends Component {
             onChange={this.handleChange}
           />
           <Dropzone
-            id="image-upload-area"
+            class="image-upload-area"
             multiple={false}
             accept="image/*"
             onDrop={this.onImageDrop}>
@@ -239,7 +239,7 @@ class ProductListingForm extends Component {
           </Dropzone>
           {
             this.state.image.length !== 0 ?
-              <img id="uploaded-image" src={this.state.image}/>
+              <img class="uploaded-image" src={this.state.image}/>
               :
               null
           }

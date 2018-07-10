@@ -159,20 +159,18 @@ body {
   font-family: Arimo;
 }
 
-
-
 .form-select {
   width: 300px;
 }
 
-#uploaded-image {
+.uploaded-image {
   width: 250px;
   height: auto;
   border-radius: 7px;
   margin: 20px;
 }
 
-#image-upload-area {
+.image-upload-area {
   border-color: green !important;
   float: right !important;
   width: 200px !important;
