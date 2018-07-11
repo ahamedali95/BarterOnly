@@ -41,7 +41,7 @@ class PrivateProductListings extends Component {
       return (
         <Table.Row>
           <Table.Cell>
-            <img src={productListingObj.image}/>
+            <img className="private-image" src={productListingObj.image}/>
             <a onClick={() => this.props.selectProductListing(productListingObj)}><p className="private-listing-details">{productListingObj.name}</p></a>
             <p className="private-listing-details">{productListingObj.description}</p>
           </Table.Cell>

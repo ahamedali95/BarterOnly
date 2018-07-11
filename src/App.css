@@ -77,31 +77,22 @@ body {
 .form-input {
   width: 300px;
 }
-
+/*
 #wrapper-for-product-details {
-  width: 1000px;
-  margin-right: 20px;
-  border: 1px solid black;
-  overflow: hidden;
-  padding: 20px;
-  border: 1px solid black;
-  border-width: thin;
-  display: inline-block;
-  margin-top: 90px;
-  border-radius: 7px;
-  border-color: green;
+  margin: 0px auto;
+  width: 100px;
 }
 
 #product-details-name {
   font-size: 50px;
-  float: center;
+  float: left;
 }
 
 #product-details-image {
   width: 540px;
   height: auto;
   border-radius: 7px;
-  float: left;
+  float: center;
   margin: 100px;
 }
 
@@ -112,9 +103,9 @@ body {
 
 #details-location {
   font-size: 30px;
-}
+} */
 
-#details {
+/* #details {
   font-size: 20px;
   border: 1px solid black;
   overflow: hidden;
@@ -144,7 +135,7 @@ body {
   background-color: #453D3C;
   color: white;
   font-family: Arimo;
-}
+} */
 
 /* #wanted  {
   font-size: 20px;
@@ -209,5 +200,20 @@ body {
   color: red !important;
   font-family: Arimo !important;
   font-size: weight;
-  font-size: 20px
+  font-size: 20px;
+}
+
+#footer {
+  width: 1650px;
+  height: 200px;
+}
+
+#card-image {
+  width: 300px;
+  height: 180px;
+}
+
+.private-image {
+  width: 100px;
+  height: 100px;
 }

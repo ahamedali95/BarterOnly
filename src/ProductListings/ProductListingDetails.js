@@ -38,10 +38,10 @@ class ProductListingDetails extends Component {
     this.props.history.goBack();
   }
 
-  // handleRedirect = () => {
-  //   console.log("inside productListingdetails", this.props)
-  //   this.props.history.push("/edit-product-listing")
-  // }
+  handleRedirect = () => {
+    console.log("inside productListingdetails", this.props)
+    this.props.history.push("/edit-product-listing")
+  }
 
   handleChange = (event, { name, value }) => {
     if(event.target.value === undefined) {

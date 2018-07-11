@@ -40,6 +40,7 @@ class LoginForm extends Component {
         adapter.setToken(data.token);
         adapter.setUserId(data.userId);
         this.props.history.push("/product-listings");
+        window.location.reload();
       }
     });
   }

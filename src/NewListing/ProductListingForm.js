@@ -339,6 +339,7 @@ class ProductListingForm extends Component {
   }
 
   render() {
+    console.log('rending product listing form');
     return (
       <div>
         {this.state.isError ?

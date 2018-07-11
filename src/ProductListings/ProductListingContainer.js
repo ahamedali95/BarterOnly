@@ -5,7 +5,7 @@ import SearchField from "./SearchField.js";
 import SortSelection from "./SortSelection.js";
 import adapter from "../adapter.js";
 import { connect } from "react-redux";
-import { removeCurrentProductListing, setProductListingsAndCategoriesAndUsers } from "../actions/index.js";
+import { removeCurrentProductListing, setProductListingsAndCategoriesAndUsersAndPurchases } from "../actions/index.js";
 import LineGraph from "./LineGraph.js";
 
 class ProductListingContainer extends Component {
@@ -17,10 +17,11 @@ class ProductListingContainer extends Component {
     Promise.all([
       adapter.get("categories"),
       adapter.get("product_listings"),
-      adapter.get("users")
+      adapter.get("users"),
+      adapter.get("purchases")
     ])
-    .then(([response1, response2, response3]) => Promise.all([response1.json(), response2.json(), response3.json()]))
-    .then(([categories, productListings, users]) => {
+    .then(([response1, response2, response3, response4]) => Promise.all([response1.json(), response2.json(), response3.json(), response4.json()]))
+    .then(([categories, productListings, users, purchases]) => {
 
       //Filter the product listings so that we can products which are not sold.
       // productListings = productListings.filter((productListingObj) => {
@@ -28,7 +29,7 @@ class ProductListingContainer extends Component {
       // });
       //We are doing this in ProductListingsCollection.js because if I do this here,
       //then myListings will show only products which are sold, not ALL products.
-      this.props.setProductListingsAndCategoriesAndUsers(productListings, categories, users);
+      this.props.setProductListingsAndCategoriesAndUsersAndPurchases(productListings, categories, users, purchases);
     });
   }
 
@@ -76,7 +77,6 @@ class ProductListingContainer extends Component {
             null
         }
         <ProductListingsCollection/>
-        <LineGraph/>
       </div>
     );
   }
@@ -90,8 +90,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setProductListingsAndCategoriesAndUsers: (product_listings, categories, users) => {
-      dispatch(setProductListingsAndCategoriesAndUsers(product_listings, categories, users));
+    setProductListingsAndCategoriesAndUsersAndPurchases: (product_listings, categories, users, purchases) => {
+      dispatch(setProductListingsAndCategoriesAndUsersAndPurchases(product_listings, categories, users, purchases));
     },
     removeCurrentProductListing: () => {
       dispatch(removeCurrentProductListing());

@@ -8,7 +8,7 @@ const ProductListing = (props) => {
   return (
     <Card>
       <Card.Content>
-        <Image src={props.productListing.image}/>
+        <Image id="card-image" src={props.productListing.image}/>
         <Card.Header>{props.productListing.name}</Card.Header>
         <Card.Meta>{`$${props.productListing.value}`}</Card.Meta>
         <Card.Description>{props.productListing.description}</Card.Description>

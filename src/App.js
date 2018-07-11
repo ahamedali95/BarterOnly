@@ -10,18 +10,25 @@ import ProductListingForm from "./NewListing/ProductListingForm.js";
 import PrivateProductListings from "./PrivateListings/PrivateProductListings.js";
 import MatchingProductListings from "./Matches/MatchingProductListings.js";
 import ModifyProductListing from "./ModifyListing/ModifyProductListing.js";
+import PurchasedProducts from "./PurchasedProducts/PurchasedProducts.js";
 import Footer from "./Footer.js"
 import NavBar from "./NavBar.js";
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 
 class App extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       isNavigationChanged: false
     }
+  }
+
+  changeNavigation = () => {
+    this.setState({
+      isNavigationChanged: !this.isNavigationChanged
+    })
   }
 
   handleClick = () => {
@@ -31,8 +38,8 @@ class App extends Component {
     localStorage.clear();
     this.props.removeCurrentProductListing()
     this.setState({
-      isNavigationChanged: true
-    });
+      isNavigationChanged: !this.state.isNavigationChanged
+    }, () => this.props.history.push("/login"));
   }
 
   render() {
@@ -58,23 +65,25 @@ class App extends Component {
             {
               !!localStorage.getItem("token") ?
                 <React.Fragment>
-                  <Route exact path="/new-product-listing" render={(props) => <ProductListingForm {...props}/>}></Route>
-                  <Route exact path="/my-product-listings" render={(props) => <PrivateProductListings {...props}/>}></Route>
-                  <Route exact path="/matching-listings" render={(props) => <MatchingProductListings {...props}/>}></Route>
+                  <Route exact path="/new-product-listing" component={ProductListingForm}></Route>
+                  <Route exact path="/my-product-listings" component={PrivateProductListings}></Route>
+                  <Route exact path="/matching-listings" component={MatchingProductListings}></Route>
+                  <Route exact path="/my-purchases" component={PurchasedProducts}></Route>
                 </React.Fragment>
                 :
                 <Redirect to={{pathname: "/login"}} push/>
             }
-            <Route exact path="/product-listings" component={ProductListingContainer}></Route>
+            <Route exact path="/product-listings" render={(props) => <ProductListingContainer {...props}/>}></Route>
             <Route exact path="/edit-product-listing" component={ModifyProductListing}></Route>
-            {/*
-              <Route exact path="/new-product-listing" component={ProductListingForm}></Route>
+
+
+            {/*}<Route exact path="/new-product-listing" component={ProductListingForm}></Route>
             <Route exact path="/my-product-listings" component={PrivateProductListings}></Route>
             <Route exact path="/matching-listings" component={MatchingProductListings}></Route>
             */}
-            <div>
-              <a href="http://localhost:3000/product-listings"><img src="../assets/images/footer.png" alt="footer"/></a>
-            </div>
+            <footer>
+              <a href="http://localhost:3000/product-listings"><img id="footer" src="../assets/images/footer.png" alt="footer"/></a>
+            </footer>
           </div>
         </Router>
       </div>

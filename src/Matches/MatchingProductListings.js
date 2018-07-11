@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import ProductListingDetails from "../ProductListings/ProductListingDetails.js";
 import { updateProductListings, removeCurrentProductListing, selectProductListing } from "../actions/index.js";
 import { Table, Icon } from "semantic-ui-react";
+import { BrowserRouter, Route } from "react-router-dom";
 
 class MatchingProductListings extends Component {
   constructor(props) {
@@ -75,7 +76,7 @@ class MatchingProductListings extends Component {
       return (
         <Table.Row>
           <Table.Cell>
-            <img src={productListingObj.image}/>
+            <img className="private-image" src={productListingObj.image}/>
             <p><a onClick={() => this.props.selectProductListing(productListingObj)}>{productListingObj.name}</a></p>
             <p className="private-listing-details">{productListingObj.description}</p>
           </Table.Cell>
@@ -118,7 +119,11 @@ class MatchingProductListings extends Component {
             </Table.Body>
           </Table>
           :
-          <ProductListingDetails></ProductListingDetails>
+          <BrowserRouter>
+            <Route
+              render={ props => <ProductListingDetails {...props} />}
+            />
+          </BrowserRouter>
       }
       </div>
     );
