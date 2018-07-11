@@ -60,13 +60,30 @@ class MatchingProductListings extends Component {
     for(let i = 0; i < productListings.length; i++) {
         const productListing = productListings[i];
       for(let j = 0; j < items.length; j++) {
-        if(productListing.name.toLowerCase().includes(items[j].toLowerCase())) {
+        //productListing.name.toLowerCase().includes(items[j].toLowerCase())
+        if(this.call(productListing.name, items[j])) {
           newProductListings.push(productListing);
         }
       }
     }
 
     return newProductListings;
+  }
+
+  call = (item1, item2) => {
+    const item1Words = item1.split(" ");
+    const item2Words = item2.split(" ");
+
+    for(let i = 0; i < item1Words.length; i++) {
+      const word1 = item1Words[i];
+      for(let j = 0; j < item2Words.length; j++) {
+        if(word1.includes(item2Words[j])) {
+          return true;
+        }
+      }
+    }
+
+    return false
   }
 
   productListingsRow = () => {

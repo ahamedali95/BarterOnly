@@ -3,8 +3,9 @@ import { Table } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { BrowserRouter, Route } from "react-router-dom";
 import Moment from "react-moment";
-import { setPurchases } from "../actions/index.js";
+import { setPurchases, selectProductListing, removeCurrentProductListing } from "../actions/index.js";
 import adapter from "../adapter.js";
+import ProductListingDetails from "../ProductListings/ProductListingDetails.js";
 
 class PurchasedProducts extends Component {
   constructor(props) {
@@ -12,13 +13,11 @@ class PurchasedProducts extends Component {
   }
 
   componentDidMount() {
-    adapter.get(`users/${adapter.getUserId}/purchases`)
+    this.props.removeCurrentProductListing();
+
+    adapter.get(`users/${adapter.getUserId()}/purchases`)
     .then(response => response.json())
-    .then(data => {debugger})
-  }
-
-  getUserName = () => {
-
+    .then((data) => this.props.setPurchases(data));
   }
 
   productListingsRow = () => {
@@ -52,20 +51,29 @@ class PurchasedProducts extends Component {
   render() {
     return (
       <div>
-        <Table>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell className="product-listings-table-header">Content</Table.HeaderCell>
-              <Table.HeaderCell className="product-listings-table-header">Value</Table.HeaderCell>
-              <Table.HeaderCell className="product-listings-table-header">Paid With</Table.HeaderCell>
-              <Table.HeaderCell className="product-listings-table-header">Date Purchased</Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
+        {
+          this.props.currentProductListing === null ?
+            <Table>
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell className="product-listings-table-header">Content</Table.HeaderCell>
+                  <Table.HeaderCell className="product-listings-table-header">Value</Table.HeaderCell>
+                  <Table.HeaderCell className="product-listings-table-header">Paid With</Table.HeaderCell>
+                  <Table.HeaderCell className="product-listings-table-header">Date Purchased</Table.HeaderCell>
+                </Table.Row>
+              </Table.Header>
 
-          <Table.Body>
-            {this.productListingsRow()}
-          </Table.Body>
-        </Table>
+              <Table.Body>
+                {this.productListingsRow()}
+              </Table.Body>
+            </Table>
+            :
+            <BrowserRouter>
+              <Route
+                render={ props => <ProductListingDetails {...props} />}
+              />
+            </BrowserRouter>
+          }
       </div>
     );
   }
@@ -73,7 +81,8 @@ class PurchasedProducts extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    purchases: state.purchases
+    purchases: state.purchases,
+    currentProductListing: state.currentProductListing
   };
 }
 
@@ -81,6 +90,12 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setPurchases: (purchases) => {
       dispatch(setPurchases(purchases));
+    },
+    selectProductListing: (productListing) => {
+      dispatch(selectProductListing(productListing))
+    },
+    removeCurrentProductListing: () => {
+      dispatch(removeCurrentProductListing())
     }
   };
 }

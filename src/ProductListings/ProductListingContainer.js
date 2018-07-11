@@ -5,7 +5,7 @@ import SearchField from "./SearchField.js";
 import SortSelection from "./SortSelection.js";
 import adapter from "../adapter.js";
 import { connect } from "react-redux";
-import { removeCurrentProductListing, setProductListingsAndCategoriesAndUsers } from "../actions/index.js";
+import { removeCurrentProductListing, setProductListingsAndCategoriesAndUsers, updateProductListings } from "../actions/index.js";
 import LineGraph from "./LineGraph.js";
 
 class ProductListingContainer extends Component {
@@ -60,6 +60,13 @@ class ProductListingContainer extends Component {
   //   console.log(option)
   //   this.props.updateSortByOption(option);
   // }
+  //This is important because once we mount we are setting the product listings to
+  //an empty array so that our private listings won't render all product listings
+  //and then go on to fetch private listings in the componentDidMount
+  componentWillUnmount() {
+    console.log("I am called")
+    this.props.updateProductListings([]);
+  }
 
   render() {
     return (
@@ -94,6 +101,9 @@ function mapDispatchToProps(dispatch) {
     },
     removeCurrentProductListing: () => {
       dispatch(removeCurrentProductListing());
+    },
+    updateProductListings: (productListings) => {
+      dispatch(updateProductListings(productListings));
     }
     // setCategoryAndResetSearchTermAndSortOption: (categoryId) => {
     //   dispatch(setCategoryAndResetSearchTermAndSortOption(categoryId));

@@ -11,7 +11,6 @@ class ProductListingDetails extends Component {
     super(props);
 
     this.state = {
-      rating: this.props.currentProductListing.rating,
       purchaseOption: null
     }
   }
@@ -129,7 +128,7 @@ class ProductListingDetails extends Component {
       <div id="wrapper-for-product-details">
         <Button onClick={this.removeCurrentProductListing}>Back to Product Listings</Button>
         {
-          this.props.currentProductListing.user_id === Number(adapter.getUserId()) ?
+          this.props.currentProductListing.user_id === Number(adapter.getUserId()) && !this.props.currentProductListing.isSold ?
             <Button onClick={this.handleRedirect}>Edit Product Listing</Button>
             :
             null
