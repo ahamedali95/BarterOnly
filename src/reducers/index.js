@@ -2,6 +2,7 @@ const initialState = {
   categories: [],
   productListings: [],
   users: [],
+  purchases: [],
   searchTerm: "",
   sortByOption: "Relevance",
   categorySelected: "All",
@@ -14,7 +15,7 @@ function reducer(state = initialState, action) {
   switch(action.type) {
     case "SET_CATEGORY_AND_RESET_SEARCH_TERM_AND_SORT_OPTION":
       return {...state, searchTerm: "", sortByOption: "Relevance", categorySelected: action.payload, currentProductListing: null};
-    case "SET_PRODUCT_LISTINGS_AND_CATEGORIES_AND_USERS_AND_PURCHASES":
+    case "SET_PRODUCT_LISTINGS_AND_CATEGORIES_AND_USERS":
       return {...state, productListings: action.payload.productListings, categories: action.payload.categories, users: action.payload.users};
     case "UPDATE_SEARCH_TERM":
       return {...state, searchTerm: action.payload};
@@ -28,6 +29,8 @@ function reducer(state = initialState, action) {
       return {...state, currentProductListing: action.payload}
     case "SET_USER_ID":
       return {...state, userId: action.payload}
+    case "SET_PURCHASES":
+      return {...state, purchases: action.payload}
     default:
       return state;
   }

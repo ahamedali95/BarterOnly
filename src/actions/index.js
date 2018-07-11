@@ -1,11 +1,10 @@
-const setProductListingsAndCategoriesAndUsersAndPurchases = (productListings, categories, users, purchases) => {
+const setProductListingsAndCategoriesAndUsers = (productListings, categories, users) => {
   return {
-    type: "SET_PRODUCT_LISTINGS_AND_CATEGORIES_AND_USERS_AND_PURCHASES",
+    type: "SET_PRODUCT_LISTINGS_AND_CATEGORIES_AND_USERS",
     payload: {
     productListings: productListings,
     categories: categories,
-    users: users,
-    purchases: purchases
+    users: users
   }};
 }
 
@@ -58,13 +57,21 @@ const setUserId = (userId) => {
   };
 }
 
+const setPurchases = (purchases) => {
+  return {
+    type: "SET_PURCHASES",
+    payload: purchases
+  }
+}
+
 module.exports = {
-  setProductListingsAndCategoriesAndUsersAndPurchases,
+  setProductListingsAndCategoriesAndUsers,
   setCategoryAndResetSearchTermAndSortOption,
   updateSearchTerm,
   updateSortByOption,
   updateProductListings,
   selectProductListing,
   removeCurrentProductListing,
-  setUserId
+  setUserId,
+  setPurchases
 };

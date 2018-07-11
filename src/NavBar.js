@@ -84,6 +84,16 @@ class NavBar extends Component {
                 Matching Listings
               </Menu.Item>
 
+              <Menu.Item
+                as={NavLink}
+                to="/my-purchases"
+                name="myPurchases"
+                active={this.state.menuItem === "myPurchases"}
+                onClick={this.handleClick}
+              >
+                My Purchases
+              </Menu.Item>
+
               <button onClick={this.props.handleClick}>Log out</button>
             </React.Fragment>
 

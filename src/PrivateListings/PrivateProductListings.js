@@ -105,7 +105,7 @@ class PrivateProductListings extends Component {
                 <Table.HeaderCell className="product-listings-table-header">Content</Table.HeaderCell>
                 <Table.HeaderCell className="product-listings-table-header">Value</Table.HeaderCell>
                 <Table.HeaderCell className="product-listings-table-header">Exchange Item</Table.HeaderCell>
-                <Table.HeaderCell className="product-listings-table-header">Date</Table.HeaderCell>
+                <Table.HeaderCell className="product-listings-table-header">Date Posted</Table.HeaderCell>
                 <Table.HeaderCell className="product-listings-table-header"></Table.HeaderCell>
                 <Table.HeaderCell className="product-listings-table-header">Del</Table.HeaderCell>
               </Table.Row>
