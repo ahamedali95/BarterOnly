@@ -61,7 +61,7 @@ class ProductListingDetails extends Component {
       value: this.props.currentProductListing.value,
       condition: this.props.currentProductListing.condition,
       location: this.props.currentProductListing.location,
-      delivery_method: this.props.currentProductListing.deliveryMethod,
+      delivery_method: this.props.currentProductListing.delivery_method,
       mode_of_purchase: this.state.purchaseOption,
       rating: this.props.currentProductListing.rating,
       category_id: this.props.currentProductListing.category_id,
@@ -126,17 +126,18 @@ class ProductListingDetails extends Component {
   render() {
     return (
       <div id="wrapper-for-product-details">
-        <Button onClick={this.removeCurrentProductListing}>Back to Product Listings</Button>
-        {
-          this.props.currentProductListing.user_id === Number(adapter.getUserId()) && !this.props.currentProductListing.isSold ?
-            <Button onClick={this.handleRedirect}>Edit Product Listing</Button>
-            :
-            null
-        }
-        <h1 id="product-details-name">{this.props.currentProductListing.name}</h1>
         {/*<Rating icon='star' defaultRating={this.state.rating} maxRating={5} name="rating" onRate={(event, { name, rating }) => this.handleRating(event, { name, rating })}/>*/}
-        <img id="product-details-image" src={this.props.currentProductListing.image}/>
         <div id="details">
+        <Button id="back-button" onClick={() => this.removeCurrentProductListing()}>Back to Product Listings</Button>
+          {/*{
+            this.props.currentProductListing.user_id === Number(adapter.getUserId()) && !this.props.currentProductListing.isSold ?
+              <Button onClick={this.handleRedirect}>Edit Product Listing</Button>
+              :
+              null
+          }
+        */}
+          <img id="product-details-image" src={this.props.currentProductListing.image}/>
+          <h1 id="product-details-name">{this.props.currentProductListing.name}</h1>
           <h2 id="details-description-heading">Description</h2>
           <p id="details-description">{this.props.currentProductListing.description}</p>
           <p>Location: {this.props.currentProductListing.location}</p>
@@ -154,7 +155,7 @@ class ProductListingDetails extends Component {
               this.props.currentProductListing.exchange_item
           }
           {
-            this.props.currentProductListing === null ?
+            !adapter.getToken() ?
               <p> ***Log in to buy item*** </p>
               :
               null

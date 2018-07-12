@@ -77,7 +77,7 @@ class PrivateProductListings extends Component {
                   // .then(data => console.log(data));
                   .then(() => {
                     const newProductListings = this.props.productListings.filter((plObj) => {
-                      return plObj.id !== productListingObj.id && plObj.user_id === this.props.userId;
+                      return plObj.id !== productListingObj.id && plObj.user_id === Number(adapter.getUserId());
                     });
 
                     this.props.updateProductListings(newProductListings);

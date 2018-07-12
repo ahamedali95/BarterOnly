@@ -101,27 +101,24 @@ const ProductListingsCollection = (props) => {
   //a specific product listing. If there exists a currentProductListing, then
   //we must show its details. Otherwise, show the entire collection of
   //product listings.
+  const productListingsCards = p.map((productListingObj) => {
+    return <ProductListing className="column" key={productListingObj.id} productListing={productListingObj}></ProductListing>
+  });
+
   return (
-    <div className="ui four doubling stackable cards">
-    {/*{
-      props.productListings.length === 0 ?
-        <LoaderForCollection/>
-        :
-        null
-    }*/
-  }
-    {
-       props.currentProductListing === null ?
-        p.map((productListingObj) => {
-          return <ProductListing className="column" key={productListingObj.id} productListing={productListingObj}></ProductListing>
-        })
-        :
+    <div>
+      {
+         props.currentProductListing === null ?
+          <div className="ui four doubling stackable cards">
+            {productListingsCards}
+          </div>
+          :
         <BrowserRouter>
           <Route
             render={ props => <ProductListingDetails {...props} />}
           />
         </BrowserRouter>
-    }
+      }
     </div>
   );
 }

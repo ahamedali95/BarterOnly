@@ -25,6 +25,10 @@ class MatchingProductListings extends Component {
     .then(data => this.props.updateProductListings(data));
   }
 
+  componentWillUnmount() {
+    this.props.updateProductListings([]);
+  }
+
   itemsUserisLookingFor = () => {
     //Filter products listings belonging to a user and get the items they are looking for
     const p = this.props.productListings.filter((productListingObj) => {
