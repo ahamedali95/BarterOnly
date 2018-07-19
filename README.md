@@ -34,6 +34,6 @@ Following is the tree-like React Component Hierarchy that describes the componen
   - **Serializer** - a Rails gem that allows to build JSON APIs through serializer objects. This provides a dedicated place to fully customize the JSON output
   - **Bcrypt** - a Ruby gem that allows to store sensitive information such as passwords in the back-end after hashing
 
-**Link to Backend application:** https://github.com/ahamedali95/BarterOnly-back-end
+**Link to back-end application:** https://github.com/ahamedali95/BarterOnly-back-end
 
 ### Demo:
