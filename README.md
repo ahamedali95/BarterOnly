@@ -37,3 +37,7 @@ Following is the tree-like React Component Hierarchy that describes the componen
 **Link to back-end application:** https://github.com/ahamedali95/BarterOnly-back-end
 
 ### Demo:
+
+
+### Instructions
+To start, run ```npm install``` && ```npm start``` to get the app up and running. To designate a different port number for the app, modify the scripts in package.json from ```"start": "react-scripts start"``` to ```"start": "PORT={PORT NO.} react-scripts start"```
