@@ -99,7 +99,7 @@ class PrivateProductListings extends Component {
       <div>
       {
         this.props.currentProductListing === null ?
-          <Table>
+          <Table className="listings-table">
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell className="product-listings-table-header">Content</Table.HeaderCell>

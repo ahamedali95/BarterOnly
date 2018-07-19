@@ -81,7 +81,7 @@ class MatchingProductListings extends Component {
     for(let i = 0; i < item1Words.length; i++) {
       const word1 = item1Words[i];
       for(let j = 0; j < item2Words.length; j++) {
-        if(word1.includes(item2Words[j])) {
+        if(word1.toLowerCase().includes(item2Words[j].toLowerCase())) {
           return true;
         }
       }
@@ -125,7 +125,7 @@ class MatchingProductListings extends Component {
       <div>
       {
         this.props.currentProductListing === null ?
-          <Table>
+          <Table className="listings-table">
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell className="product-listings-table-header">Content</Table.HeaderCell>

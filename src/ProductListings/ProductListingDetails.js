@@ -98,8 +98,8 @@ class ProductListingDetails extends Component {
     } else {
       return [
         {key: "cash", value: "Cash", text: "Cash"},
-        {key: "exchangeItem", value: "Exchange Item", text: "I have the exchange item"},
-        {key: "offer", value: "Offer", text: "I neither want to pay with cash or exchange any item. Make an offer instead"}
+        {key: "exchangeItem", value: "Exchange Item", text: "I have the exchange item"}
+        //{key: "offer", value: "Offer", text: "I neither want to pay with cash or exchange any item. Make an offer instead"}
       ];
     }
   }

@@ -13,16 +13,14 @@
 }
 
 #menu {
-  float: right;
   border-style: solid;
   border-color: green;
   border-bottom-width: 5px;
-  margin: 20px;
 }
 
 #categories {
   float: left;
-  margin-top: 80px;
+  margin-top: 20px;
 }
 
 .category {
@@ -59,7 +57,7 @@ body {
 }
 
 #wrapper-for-search-sort-by {
-  width: 1250px;
+  width: 1550px;
   border: 1px solid black;
   overflow: hidden;
   padding: 20px;
@@ -71,7 +69,7 @@ body {
 }
 
 .form {
-  margin: 100px auto;
+  margin: 50px auto;
   width: 250px;
 }
 
@@ -80,9 +78,10 @@ body {
 }
 
 #product-details-image {
-  float: center;
   width: 400px;
   height: 200px;
+  margin: 20px auto;
+  display: block;
 }
 
 #details {
@@ -193,7 +192,7 @@ body {
 }
 
 .error-messages {
-  width: 500px;
+  margin-top: 50px;
   float: center;
   font-family: Arimo;
   font-weight: bold;
@@ -225,6 +224,8 @@ body {
 #footer {
   width: 1750px;
   height: 200px;
+  bottom: -100px;
+  position: relative;
 }
 
 #card-image {
@@ -235,4 +236,14 @@ body {
 .private-image {
   width: 100px;
   height: 100px;
+}
+.results {
+  background-color: #453D3C !important;
+  border: #453D3C;
+  color: #453D3C !important;
+}
+
+.listings-table {
+  border-width: 5px !important;
+  border-color: green !important;
 }
