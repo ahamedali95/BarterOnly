@@ -8,11 +8,12 @@
 }
 
 #banner {
-  width: 1750px;
+  width: 1550px;
   height: 200px;
 }
 
 #menu {
+  margin-top: 0px;
   border-style: solid;
   border-color: green;
   border-bottom-width: 5px;
@@ -57,7 +58,7 @@ body {
 }
 
 #wrapper-for-search-sort-by {
-  width: 1550px;
+  width: 1350px;
   border: 1px solid black;
   overflow: hidden;
   padding: 20px;
@@ -222,7 +223,7 @@ body {
 }
 
 #footer {
-  width: 1750px;
+  width: 1550px;
   height: 200px;
   bottom: -100px;
   position: relative;

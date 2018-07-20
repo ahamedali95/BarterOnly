@@ -18,7 +18,6 @@ const SortSelection = (props) => {
         <option value="Recent">Recent</option>
         <option value="Price: Low to High">Price: Low to High</option>
         <option value="Price: High to Low">Price: High to Low</option>
-        <option value="Featured">Featured</option>
       </select>
     </div>
   );
