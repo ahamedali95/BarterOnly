@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./App.css";
+import "./assets/css/App.css";
 import adapter from "./adapter.js";
 import { connect } from "react-redux";
 import { removeCurrentProductListing } from "./actions/index.js";
