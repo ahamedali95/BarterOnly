@@ -21,12 +21,6 @@ class ProductListingDetails extends Component {
     this.props.history.push(`product-listings/${this.props.currentProductListing.id}`);
   }
 
-  // handleRating = (event, { name, rating }) => {
-  //   this.setState({
-  //     [name]: rating
-  //   }, () => console.log(this.state));
-  // }
-
   //a fetch GET request happens in this method because once the user purchased
   //an item from the product listing view details page and goes back to the
   //all product listings page, then we need to update the product listings with
@@ -126,7 +120,6 @@ class ProductListingDetails extends Component {
   render() {
     return (
       <div id="wrapper-for-product-details">
-        {/*<Rating icon='star' defaultRating={this.state.rating} maxRating={5} name="rating" onRate={(event, { name, rating }) => this.handleRating(event, { name, rating })}/>*/}
         <div id="details">
         <Button id="back-button" onClick={() => this.removeCurrentProductListing()}>Back to Product Listings</Button>
           {/*{
