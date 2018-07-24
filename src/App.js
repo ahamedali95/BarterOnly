@@ -11,7 +11,7 @@ import PrivateProductListings from "./PrivateListings/PrivateProductListings.js"
 import MatchingProductListings from "./Matches/MatchingProductListings.js";
 import ModifyProductListing from "./ModifyListing/ModifyProductListing.js";
 import PurchasedProducts from "./PurchasedProducts/PurchasedProducts.js";
-import NavBar from "./NavBar.js";
+import NavBar from "./NavBar/NavBar.js";
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 
 class App extends Component {
