@@ -129,7 +129,6 @@ class PrivateProductListings extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    userId: state.userId,
     productListings: state.productListings,
     currentProductListing: state.currentProductListing
   };

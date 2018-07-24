@@ -197,7 +197,6 @@ class ProductListingDetails extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    userId: state.userId,
     currentProductListing: state.currentProductListing,
     users: state.users
   };
