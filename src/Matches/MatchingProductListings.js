@@ -154,7 +154,6 @@ class MatchingProductListings extends Component {
 const mapStateToProps = (state) => {
   return {
     productListings: state.productListings,
-    userId: state.userId,
     currentProductListing: state.currentProductListing
   };
 }
