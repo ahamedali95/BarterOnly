@@ -31,34 +31,6 @@ class ProductListingContainer extends Component {
     });
   }
 
-  //A callback function that will be invoked when there is a onclick event
-  //triggered in the Categories component(child component). This function
-  //then sets the categorySelected in the global state.
-  // productListingsByCategory = (categoryName) => {
-  //   //Find the category id so that we can filter preoduct listing based on the this
-  //   //category since each product listing contains category id to associate
-  //   //with a category.
-  //   const categoryId = this.props.categories.find((categoryObj) => {
-  //     return categoryObj.name === categoryName;
-  //   }).id
-  //
-  //   this.props.setCategoryAndResetSearchTermAndSortOption(categoryId);
-  // }
-
-  //A callback function that will be invoked when there is a onchange event
-  //triggered in the searchField component(child component). This function
-  //then updates the searchTerm in the global state.
-  // filterProductListings = (searchTerm) => {
-  //   this.props.updateSearchTerm(searchTerm);
-  // }
-
-  //A callback function that will be invoked when there is a onchange event
-  //triggered in the SortSelection component(child component). This function
-  //then updates sortByOption in the global state.
-  // sortProductListings = (option) => {
-  //   console.log(option)
-  //   this.props.updateSortByOption(option);
-  // }
   //This is important because once we mount we are setting the product listings to
   //an empty array so that our private listings won't render all product listings
   //and then go on to fetch private listings in the componentDidMount
