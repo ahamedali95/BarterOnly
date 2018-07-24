@@ -6,7 +6,6 @@ import SortSelection from "./SortSelection.js";
 import adapter from "../adapter.js";
 import { connect } from "react-redux";
 import { removeCurrentProductListing, setProductListingsAndCategoriesAndUsers, updateProductListings } from "../actions/index.js";
-import LineGraph from "./LineGraph.js";
 
 class ProductListingContainer extends Component {
   componentDidMount() {

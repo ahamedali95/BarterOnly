@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import ProductListing from "./ProductListing.js";
 import ProductListingDetails from "./ProductListingDetails.js";
 import { connect } from "react-redux";
-import LoaderForCollection from "./LoaderForCollection.js";
 import { BrowserRouter, Route } from 'react-router-dom'
 
 const ProductListingsCollection = (props) => {
