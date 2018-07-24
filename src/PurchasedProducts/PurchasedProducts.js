@@ -23,7 +23,7 @@ class PurchasedProducts extends Component {
   productListingsRow = () => {
     const rows = this.props.purchases.map((purchaseObj) => {
       return (
-        <Table.Row>
+        <Table.Row key={purchaseObj.id}>
           <Table.Cell>
             <img className="private-image" src={purchaseObj.image}/>
             <p><a onClick={() => this.props.selectProductListing(purchaseObj)}>{purchaseObj.name}</a></p>

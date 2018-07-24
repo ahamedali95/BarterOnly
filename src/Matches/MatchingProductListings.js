@@ -95,7 +95,7 @@ class MatchingProductListings extends Component {
     //debugger
     const rows = productListings.map((productListingObj) => {
       return (
-        <Table.Row>
+        <Table.Row key={productListingObj.id}>
           <Table.Cell>
             <img className="private-image" src={productListingObj.image}/>
             <p><a onClick={() => this.props.selectProductListing(productListingObj)}>{productListingObj.name}</a></p>

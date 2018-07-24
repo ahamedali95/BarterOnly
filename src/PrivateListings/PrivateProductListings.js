@@ -39,7 +39,7 @@ class PrivateProductListings extends Component {
     // })
     const rows = this.props.productListings.map((productListingObj) => {
       return (
-        <Table.Row>
+        <Table.Row key={productListingObj.id}>
           <Table.Cell>
             <img className="private-image" src={productListingObj.image}/>
             <a onClick={() => this.props.selectProductListing(productListingObj)}><p className="private-listing-details">{productListingObj.name}</p></a>
