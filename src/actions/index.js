@@ -50,13 +50,6 @@ const removeCurrentProductListing = () => {
   }
 }
 
-const setUserId = (userId) => {
-  return {
-    type: "SET_USER_ID",
-    payload: userId
-  };
-}
-
 const setPurchases = (purchases) => {
   return {
     type: "SET_PURCHASES",
@@ -72,6 +65,5 @@ module.exports = {
   updateProductListings,
   selectProductListing,
   removeCurrentProductListing,
-  setUserId,
   setPurchases
 };
